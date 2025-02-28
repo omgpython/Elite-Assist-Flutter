@@ -54,4 +54,60 @@ class ProductController extends GetxController {
       isRelatedLoading.value = false;
     }
   }
+
+  RxBool isAllProductLoading = false.obs;
+
+  Future<void> getAllProduct() async {
+    isAllProductLoading.value = true;
+    try {
+      final url = Uri.parse(ConstantData.GET_ALL_PRODUCT_API);
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        isAllProductLoading.value = false;
+        model = productModelFromJson(response.body);
+        //log(response.body, name: "ALL PRODUCT");
+      }
+    } catch (e) {
+      isAllProductLoading.value = false;
+      log(e.toString(), name: "ALL PRODUCT ERROR");
+    }
+  }
+
+  RxBool isManProductsLoading = false.obs;
+  ProductModel? manModel;
+
+  Future<void> getManProducts() async {
+    isManProductsLoading.value = true;
+    try {
+      final url = Uri.parse(ConstantData.GET_MAN_PRODUCT_API);
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        isManProductsLoading.value = false;
+        manModel = productModelFromJson(response.body);
+        //log(response.body, name: "MAN PRODUCTS");
+      }
+    } catch (e) {
+      isManProductsLoading.value = false;
+      log(e.toString(), name: "MAN PRODUCT ERROR");
+    }
+  }
+
+  RxBool isWomanProductsLoading = false.obs;
+  ProductModel? womanModel;
+
+  Future<void> getWomanProducts() async {
+    isWomanProductsLoading.value = true;
+    try {
+      final url = Uri.parse(ConstantData.GET_WOMAN_PRODUCT_API);
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        isWomanProductsLoading.value = false;
+        womanModel = productModelFromJson(response.body);
+        //log(response.body, name: "WOMAN PRODUCTS");
+      }
+    } catch (e) {
+      isWomanProductsLoading.value = false;
+      log(e.toString(), name: "WOMAN PRODUCT ERROR");
+    }
+  }
 }

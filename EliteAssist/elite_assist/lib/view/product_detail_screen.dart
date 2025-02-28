@@ -168,7 +168,7 @@ class ProductDetailScreen extends StatelessWidget {
                                 Icon(Icons.star),
                                 SizedBox(width: 5),
                                 Text(
-                                  (3 + Random().nextDouble() * 2)
+                                  (4 + Random().nextDouble())
                                       .toStringAsFixed(2),
                                   style: TextStyle(
                                     fontSize: 20,
@@ -304,14 +304,17 @@ class ProductDetailScreen extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   var relatedProduct =
                                       controller.relatedModel!.product[index];
-                                  return Container(
-                                    height: 100,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.9,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.white,
-                                    ),
+                                  return GestureDetector(
+                                    onTap: () {
+                                      // Get.snackbar("title", "");
+                                      // Get.to(
+                                      //   () => ProductDetailScreen(
+                                      //     product: relatedProduct,
+                                      //     appBarString:
+                                      //         relatedProduct.productName,
+                                      //   ),
+                                      // );
+                                    },
                                     child: Container(
                                       height: 100,
                                       width: MediaQuery.of(context).size.width *
@@ -319,75 +322,75 @@ class ProductDetailScreen extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20),
                                         color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey,
-                                            blurRadius: 20,
-                                          ),
-                                        ],
                                       ),
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      child: Column(
-                                        children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(20),
-                                                topRight: Radius.circular(20),
-                                              ),
-                                              child: Image.network(
-                                                height: double.infinity,
-                                                width: double.infinity,
-                                                relatedProduct.productPic1,
-                                                fit: BoxFit.fill,
+                                      child: Card(
+                                        margin: EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                          bottom: 15,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                              flex: 3,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(10),
+                                                  topRight: Radius.circular(10),
+                                                ),
+                                                child: Image.network(
+                                                  height: double.infinity,
+                                                  width: double.infinity,
+                                                  relatedProduct.productPic1,
+                                                  fit: BoxFit.fill,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 10,
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    relatedProduct.productName,
-                                                    style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontFamily:
-                                                          Fonts.BonaNovaSC,
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 10,
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      relatedProduct
+                                                          .productName,
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily:
+                                                            Fonts.BonaNovaSC,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.currency_rupee,
-                                                        size: 18,
-                                                      ),
-                                                      Text(
-                                                        relatedProduct.price,
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontFamily:
-                                                              Fonts.BonaNovaSC,
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.currency_rupee,
+                                                          size: 18,
                                                         ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
+                                                        Text(
+                                                          relatedProduct.price,
+                                                          style: TextStyle(
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontFamily: Fonts
+                                                                .BonaNovaSC,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          )
-                                        ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
