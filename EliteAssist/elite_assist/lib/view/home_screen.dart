@@ -6,6 +6,7 @@ import 'package:elite_assist/controller/product_controller.dart';
 import 'package:elite_assist/controller/service_controller.dart';
 import 'package:elite_assist/generated/fonts.dart';
 import 'package:elite_assist/view/product_detail_screen.dart';
+import 'package:elite_assist/view/see_all_product_screen.dart';
 import 'package:elite_assist/view/sub_service_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,16 +31,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.grey,
         ),
         centerTitle: true,
         title: Text(
           'Home Page',
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: Fonts.BebasNeue,
-          ),
+          style: TextStyle(fontFamily: Fonts.BebasNeue),
         ),
       ),
       body: Obx(
@@ -169,6 +168,7 @@ class HomeScreen extends StatelessWidget {
                                       child: Image.network(
                                         data.pic,
                                         width: double.infinity,
+                                        height: 125,
                                         fit: BoxFit.fill,
                                       ),
                                     ),
@@ -200,7 +200,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.symmetric(horizontal: 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -213,7 +213,14 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(
+                                () => SeeAllProductScreen(
+                                  model: productController.model!,
+                                  appBarString: "Services",
+                                ),
+                              );
+                            },
                             child: Text(
                               'See All >',
                               style: TextStyle(
@@ -261,6 +268,8 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     child: Image.network(
                                       width: double.infinity,
+                                      height: 125,
+                                      fit: BoxFit.cover,
                                       data.productPic1,
                                     ),
                                   ),
@@ -336,7 +345,7 @@ class HomeScreen extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.symmetric(horizontal: 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -349,7 +358,14 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(
+                                () => SeeAllProductScreen(
+                                  model: productController.manModel!,
+                                  appBarString: "Man's Services",
+                                ),
+                              );
+                            },
                             child: Text(
                               'See All >',
                               style: TextStyle(
@@ -398,6 +414,8 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     child: Image.network(
                                       width: double.infinity,
+                                      height: 125,
+                                      fit: BoxFit.cover,
                                       data.productPic1,
                                     ),
                                   ),
@@ -474,7 +492,7 @@ class HomeScreen extends StatelessWidget {
                       color: Colors.grey.shade300,
                     ),
                     Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.symmetric(horizontal: 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -487,7 +505,14 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(
+                                () => SeeAllProductScreen(
+                                  model: productController.womanModel!,
+                                  appBarString: "Woman's Services",
+                                ),
+                              );
+                            },
                             child: Text(
                               'See All >',
                               style: TextStyle(
@@ -537,6 +562,8 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     child: Image.network(
                                       width: double.infinity,
+                                      height: 125,
+                                      fit: BoxFit.cover,
                                       data.productPic1,
                                     ),
                                   ),
@@ -609,7 +636,93 @@ class HomeScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 20),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(12),
+                        child: Column(
+                          spacing: 12,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
+                              spacing: 6,
+                              children: [
+                                Icon(Icons.handshake),
+                                Container(
+                                  width: screenWidth * 0.85,
+                                  child: Text(
+                                    'Connecting You to Quality Service, Anytime, Anywhere!',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: Fonts.Roboto,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              spacing: 6,
+                              children: [
+                                Icon(Icons.shield),
+                                Container(
+                                  width: screenWidth * 0.75,
+                                  child: Text(
+                                    'Your Trusted Partner for Seamless Service Solutions!',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: Fonts.Roboto,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              spacing: 6,
+                              children: [
+                                Icon(Icons.access_time),
+                                Container(
+                                  width: screenWidth * 0.75,
+                                  child: Text(
+                                    'Efficient Service at Your Fingertips!',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: Fonts.Roboto,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              spacing: 6,
+                              children: [
+                                Icon(Icons.check_circle),
+                                Container(
+                                  width: screenWidth * 0.75,
+                                  child: Text(
+                                    'Experience Excellence with Every Service!',
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: Fonts.Roboto,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
