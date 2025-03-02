@@ -3,6 +3,7 @@ import 'package:elite_assist/controller/sub_service_controller.dart';
 import 'package:elite_assist/generated/fonts.dart';
 import 'package:elite_assist/view/product_detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class SubServiceScreen extends StatelessWidget {
@@ -19,7 +20,18 @@ class SubServiceScreen extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text(name),
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.black,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.grey,
+        ),
+        centerTitle: true,
+        title: Text(
+          name,
+          style: TextStyle(
+            fontFamily: Fonts.BebasNeue,
+          ),
+        ),
       ),
       body: Obx(
         () {
@@ -35,6 +47,7 @@ class SubServiceScreen extends StatelessWidget {
               children: [
                 SizedBox(width: 5),
                 Container(
+                  padding: EdgeInsets.symmetric(vertical: 6),
                   width: width * 0.3,
                   child: ListView.separated(
                     itemCount: subServiceController!.model!.service.length,

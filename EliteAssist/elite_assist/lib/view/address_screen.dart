@@ -2,6 +2,7 @@ import 'package:elite_assist/controller/address_controller.dart';
 import 'package:elite_assist/generated/fonts.dart';
 import 'package:elite_assist/view/add_address_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,12 @@ class AddressScreen extends StatelessWidget {
     controller.getAddress();
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.black,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.grey,
+        ),
+        centerTitle: true,
         title: Text(
           'My Address',
           style: TextStyle(

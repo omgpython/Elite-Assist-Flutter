@@ -15,6 +15,7 @@ class CouponScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Colors.black,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.grey,
@@ -23,7 +24,6 @@ class CouponScreen extends StatelessWidget {
         title: Text(
           'Offer Zone',
           style: TextStyle(
-            color: Colors.white,
             fontFamily: Fonts.BebasNeue,
           ),
         ),

@@ -1,12 +1,15 @@
 import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:elite_assist/common_ui/custom_svg_icon.dart';
 import 'package:elite_assist/common_ui/dashed_line.dart';
 import 'package:elite_assist/controller/product_controller.dart';
+import 'package:elite_assist/generated/assets.dart';
 import 'package:elite_assist/generated/fonts.dart';
 import 'package:elite_assist/model/product_model.dart';
 import 'package:elite_assist/view/service_booking_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
@@ -28,6 +31,12 @@ class ProductDetailScreen extends StatelessWidget {
     );
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.black,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.grey,
+        ),
+        centerTitle: true,
         title: Text(
           appBarString ?? product.productName,
           style: TextStyle(
@@ -134,14 +143,18 @@ class ProductDetailScreen extends StatelessWidget {
                             SizedBox(height: 5),
                             Row(
                               children: [
-                                Icon(Icons.room_service_rounded),
+                                CustomSvgIcon(image: Assets.iconsService),
                                 SizedBox(width: 5),
-                                Text(
-                                  product.productName,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: Fonts.BonaNovaSC,
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  child: Text(
+                                    product.productName,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: Fonts.BonaNovaSC,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -149,8 +162,7 @@ class ProductDetailScreen extends StatelessWidget {
                             SizedBox(height: 5),
                             Row(
                               children: [
-                                Icon(Icons.currency_rupee),
-                                //SvgPicture.asset(Assets.iconsRupee),
+                                CustomSvgIcon(image: Assets.iconsRupee),
                                 SizedBox(width: 5),
                                 Text(
                                   product.price,
@@ -165,7 +177,7 @@ class ProductDetailScreen extends StatelessWidget {
                             SizedBox(height: 5),
                             Row(
                               children: [
-                                Icon(Icons.star),
+                                CustomSvgIcon(image: Assets.iconsReview),
                                 SizedBox(width: 5),
                                 Text(
                                   (4 + Random().nextDouble())
@@ -181,7 +193,7 @@ class ProductDetailScreen extends StatelessWidget {
                             SizedBox(height: 5),
                             Row(
                               children: [
-                                Icon(Icons.timer),
+                                CustomSvgIcon(image: Assets.iconsTimer),
                                 SizedBox(width: 5),
                                 Text(
                                   "Less Then ${product.time} Hour",

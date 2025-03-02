@@ -6,6 +6,7 @@ import 'package:elite_assist/model/product_model.dart';
 import 'package:elite_assist/view/add_address_screen.dart';
 import 'package:elite_assist/view/coupon_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:swipee/swipee.dart';
@@ -31,11 +32,16 @@ class ServiceBookingScreen extends StatelessWidget {
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.black,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.grey,
+        ),
+        centerTitle: true,
         title: Text(
-          'Service Booking',
+          '${product.productName} Booking',
           style: TextStyle(
             fontFamily: Fonts.BebasNeue,
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -73,12 +79,15 @@ class ServiceBookingScreen extends StatelessWidget {
                                 children: [
                                   Icon(Icons.room_service_rounded),
                                   SizedBox(width: 5),
-                                  Text(
-                                    product.productName,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: Fonts.BonaNovaSC,
+                                  Container(
+                                    width: screenWidth * 0.3,
+                                    child: Text(
+                                      product.productName,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: Fonts.BonaNovaSC,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -154,66 +163,96 @@ class ServiceBookingScreen extends StatelessWidget {
                       DashedLine(),
                       SizedBox(height: 15),
                       Row(
+                        spacing: 12,
                         children: [
-                          Text(
-                            'Service Date :',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: Fonts.Roboto,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          GestureDetector(
-                            onTap: () {
-                              controller.selectDate(context);
-                            },
-                            child: Obx(
-                              () {
-                                return Text(
-                                  controller.date.value,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: Fonts.Roboto,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                );
+                          Expanded(
+                            child: FilledButton(
+                              onPressed: () {
+                                controller.selectDate(context);
                               },
+                              style: FilledButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                backgroundColor: Colors.black,
+                              ),
+                              child: Obx(() => Text(controller.date.value)),
                             ),
                           ),
+                          Expanded(
+                            child: FilledButton(
+                              onPressed: () {
+                                controller.selectTime(context);
+                              },
+                              style: FilledButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                backgroundColor: Colors.black,
+                              ),
+                              child: Obx(() => Text(controller.time.value)),
+                            ),
+                          )
+
+                          // Text(
+                          //   'Service Date :',
+                          //   style: TextStyle(
+                          //     fontSize: 18,
+                          //     fontFamily: Fonts.Roboto,
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
+                          // SizedBox(width: 10),
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     controller.selectDate(context);
+                          //   },
+                          //   child: Obx(
+                          //     () {
+                          //       return Text(
+                          //         controller.date.value,
+                          //         style: TextStyle(
+                          //           fontSize: 18,
+                          //           fontFamily: Fonts.Roboto,
+                          //           fontWeight: FontWeight.bold,
+                          //         ),
+                          //       );
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                       SizedBox(height: 5),
-                      Row(
-                        children: [
-                          Text(
-                            'Service Time :',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontFamily: Fonts.Roboto,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          GestureDetector(
-                            onTap: () {
-                              controller.selectTime(context);
-                            },
-                            child: Obx(
-                              () {
-                                return Text(
-                                  controller.time.value,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: Fonts.Roboto,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     Text(
+                      //       'Service Time :',
+                      //       style: TextStyle(
+                      //         fontSize: 18,
+                      //         fontFamily: Fonts.Roboto,
+                      //         fontWeight: FontWeight.bold,
+                      //       ),
+                      //     ),
+                      //     SizedBox(width: 10),
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         controller.selectTime(context);
+                      //       },
+                      //       child: Obx(
+                      //         () {
+                      //           return Text(
+                      //             controller.time.value,
+                      //             style: TextStyle(
+                      //               fontSize: 18,
+                      //               fontFamily: Fonts.Roboto,
+                      //               fontWeight: FontWeight.bold,
+                      //             ),
+                      //           );
+                      //         },
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
