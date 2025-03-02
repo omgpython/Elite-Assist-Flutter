@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/elite_assist_partners/elite_assist_partners.iml" filepath="$PROJECT_DIR$/elite_assist_partners/elite_assist_partners.iml" />
+      <module fileurl="file://$PROJECT_DIR$/elite_assist_partners/android/elite_assist_partners_android.iml" filepath="$PROJECT_DIR$/elite_assist_partners/android/elite_assist_partners_android.iml" />
+    </modules>
+  </component>
+</project>
