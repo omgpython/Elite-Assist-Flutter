@@ -17,8 +17,7 @@ class PersonController extends GetxController {
   PrefManager manager = PrefManager();
 
   @override
-  Future<void> onInit() async {
-    await PrefManager().init();
+  void onInit() {
     super.onInit();
   }
 
@@ -76,7 +75,6 @@ class PersonController extends GetxController {
 
   Future<void> loginUser() async {
     isUserLogin.value = true;
-    await manager.init();
     try {
       final url = Uri.parse(ConstantData.LOGIN_USER_API);
       var response = await http.post(url, body: {

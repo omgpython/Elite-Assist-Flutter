@@ -13,7 +13,6 @@ class AddressController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    await manager.init();
     super.onInit();
   }
 
@@ -68,7 +67,7 @@ class AddressController extends GetxController {
   Future<void> getAddress() async {
     try {
       isAddressGet.value = true;
-      final url = Uri.parse(ConstantData.ADDRESS_API);
+      final url = Uri.parse(ConstantData.GET_ADDRESS_API);
       var response = await http.post(
         url,
         body: {"uid": manager.getUserId()},

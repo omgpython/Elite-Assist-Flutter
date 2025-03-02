@@ -25,16 +25,8 @@ class Dashboard extends Controller
         if(!isset($uid)){
             return redirect("/AdminLogin");
         }else{
-            // $revenue=DB::table('orders')->where('status','!=',0)->sum('total_amount');
-            $revenue = DB::table('orders')
-                ->where('status', '!=', 0)
-                ->pluck('total_amount');
-
-            $revenue = $revenue->map(function ($value) {
-                return (int) $value; 
-            })->sum();
-
-
+            $revenue=DB::table('orders')->sum('total_amount'); //where('status','!=',0)->
+            
             $orders = order::latest()->get();
             $order_count = $orders->count();
     

@@ -11,6 +11,7 @@ import 'login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   PrefManager manager = PrefManager();
+
   @override
   Widget build(BuildContext context) {
     checkIsLogin();
@@ -24,7 +25,6 @@ class SplashScreen extends StatelessWidget {
   }
 
   Future<void> checkIsLogin() async {
-    await manager.init();
     bool value = manager.isLogin();
     Timer(
       Duration(seconds: 5),

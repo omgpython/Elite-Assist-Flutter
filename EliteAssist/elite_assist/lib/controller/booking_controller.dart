@@ -10,8 +10,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-import '../model/product_model.dart';
-
 class BookingController extends GetxController {
   PrefManager manager = PrefManager();
   final couponController = TextEditingController();
@@ -29,7 +27,6 @@ class BookingController extends GetxController {
 
   @override
   void onInit() {
-    manager.init();
     super.onInit();
   }
 
@@ -149,7 +146,7 @@ class BookingController extends GetxController {
   RxBool isAddLoading = false.obs;
 
   Future<void> addOrder({
-    required Product product,
+    required String productId,
     required String address,
   }) async {
     try {
@@ -159,12 +156,8 @@ class BookingController extends GetxController {
         url,
         body: {
           'uid': manager.getUserId(),
-          'uname': manager.getUserName(),
-          'ucontact': manager.getContact(),
-          'pid': product.id,
-          'pname': product.productName,
-          'ppic': product.productPic1,
-          'amount': product.price.toString(),
+          'pid': productId,
+          'amount': amount.value.toString(),
           'gst_amt': gst.value.toString(),
           'discount_amt': discount.value.toString(),
           'fees': fees.value.toString(),
@@ -182,7 +175,7 @@ class BookingController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        log(response.body, name: "ADD ORDER");
+        //log(response.body, name: "ADD ORDER");
         isAddLoading.value = false;
         Get.offAll(() => SuccessBookingScreen());
       }

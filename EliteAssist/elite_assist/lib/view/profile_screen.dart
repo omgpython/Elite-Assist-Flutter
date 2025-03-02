@@ -20,7 +20,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    init();
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -213,10 +212,6 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future<void> init() async {
-    await manager.init();
   }
 
   void showAlertDialog({required BuildContext context}) {

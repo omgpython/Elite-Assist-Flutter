@@ -19,7 +19,7 @@ class CouponController extends GetxController {
   Future<void> getCoupon() async {
     try {
       isLoading.value = true;
-      final url = Uri.parse(ConstantData.COUPON_API);
+      final url = Uri.parse(ConstantData.GET_COUPON_API);
       var response = await http.get(url);
 
       if (response.statusCode == 200) {

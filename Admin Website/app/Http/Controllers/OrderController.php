@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\order;
 use App\Models\Partner;
+use App\Models\Person;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class OrderController extends Controller
         if(!isset($uid)){
             return redirect("/AdminLogin");
         }else{
-            $data=order::where('is_aasign',0)->paginate(2);
+            $data=order::where('is_aasign',false)->paginate(2);
             return view('orders.index',compact('data','Admin_pic','username'));
         }
 
@@ -137,11 +138,7 @@ class OrderController extends Controller
 
     public function addOrder(Request $request) {
         if(isset($request->uid) &&
-        isset($request->uname) &&
-        isset($request->ucontact) &&
         isset($request->pid) &&
-        isset($request->pname) &&
-        isset($request->ppic) &&
         isset($request->amount) &&
         isset($request->gst_amt) &&
         isset($request->discount_amt) &&
@@ -155,18 +152,21 @@ class OrderController extends Controller
         isset($request->pay_type) &&
         isset($request->address)) {
 
+            $user = Person::find($request->uid);
+            $product = Product::find($request->pid);
             $table = new order();
+
             $table->uid = $request->uid;
-            $table->uname = $request->uname;
-            $table->ucontact = $request->ucontact;
+            $table->uname = $user->username;
+            $table->ucontact = $user->phone;
             $table->pid = $request->pid;
-            $table->pname = $request->pname;
-            $table->ppic = $request->ppic;
-            $table->amount = $request->amount;
-            $table->gst_amt = $request->gst_amt;
-            $table->discount_amt = $request->discount_amt;
-            $table->fees = $request->fees;
-            $table->total_amount = $request->total_amt;
+            $table->pname = $product->product_name;
+            $table->ppic = $product->product_pic1;
+            $table->amount = (int) $request->amount;
+            $table->gst_amt = (int) $request->gst_amt;
+            $table->discount_amt = (int) $request->discount_amt;
+            $table->fees = (int) $request->fees;
+            $table->total_amount = (int) $request->total_amt;
             $table->coupon_code = $request->coupon_code;
             $table->order_date = $request->order_date;
             $table->order_time = $request->order_time;
@@ -174,8 +174,14 @@ class OrderController extends Controller
             $table->time = $request->time;
             $table->payment_type = $request->pay_type;
             $table->address = $request->address;
-            $table->status = 1;
-            $table->is_aasign = 0;
+            $table->partner_id = "";
+            $table->partner_name = "";
+            $table->partner_contact = "";
+            $table->partner_pic = "";
+            $table->end_date = "";
+            $table->end_time = "";
+            $table->status = 0;
+            $table->is_aasign = false;
             $table->save();
 
             return [

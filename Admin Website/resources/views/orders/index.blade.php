@@ -18,19 +18,16 @@
             <h5 class="card-title">Orders</h5>
 
             <!-- Table with stripped rows -->
-            <table class="table ">
+            <table class="table">
               <thead>
                 <tr>
                   <th>Id</th>
-                  <th>User-id</th>
                   <th>Service-id</th>
                   <th>Service-name</th>
                   <th>Amount</th>
-                  <th>Total-Amount</th>
                   <th>status</th>
                   <th>date</th>
                   <th>time</th>
-                  <th>Address</th>
                   <th>payment_type</th>
                   <th>Assign Order</th>
                 </tr>
@@ -39,15 +36,12 @@
                 @foreach ($data as $item)
                   <tr>
                     <td>{{$loop->index+1}}</td>
-                    <td>{{$item->uid}}</td>
                     <td>{{$item->pid}}</td>
                     <td>{{$item->pname}}</td>
-                    <td>{{$item->amount}}</td>
                     <td>{{$item->total_amount}}</td>
                     <td>{{$item->status}}</td>
                     <td>{{$item->date}}</td>
                     <td>{{$item->time}}</td>
-                    <td>{{$item->address}}</td>
                     <td>{{$item->payment_type}}</td>
                     <td>
                     <form method="POST" action="/add/partner/booking">

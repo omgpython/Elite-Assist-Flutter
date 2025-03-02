@@ -177,7 +177,7 @@ class ProductController extends Controller
 
     public function getProductDataApi()
     {
-        $data = Product::get();
+        $data = Product::where('gender','NoGender')->get();
         foreach($data as $item){
             $item->product_pic1=asset('product') ."/".$item->product_pic1;
         }

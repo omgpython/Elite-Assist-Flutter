@@ -18,7 +18,7 @@ class ServiceController extends GetxController {
   Future<void> getService() async {
     try {
       isLoading.value = true;
-      final url = Uri.parse(ConstantData.SERVICE_API);
+      final url = Uri.parse(ConstantData.GET_SERVICE_API);
       var response = await http.get(url);
       if (response.statusCode == 200) {
         //log(response.body, name: "SERVICE");

@@ -646,7 +646,7 @@ class ServiceBookingScreen extends StatelessWidget {
                             if (controller.total_amount >= 1) {
                               if (controller.pay_type == "COD") {
                                 controller.addOrder(
-                                  product: product,
+                                  productId: product.id,
                                   address: addressController.addressData.value,
                                 );
                                 Get.snackbar(
@@ -659,7 +659,7 @@ class ServiceBookingScreen extends StatelessWidget {
                             } else {
                               controller.pay_type = "Nothing to Pay";
                               controller.addOrder(
-                                product: product,
+                                productId: product.id,
                                 address: addressController.addressData.value,
                               );
                             }
@@ -689,7 +689,7 @@ class ServiceBookingScreen extends StatelessWidget {
     }
     _razorpay.clear();
     controller.addOrder(
-      product: product,
+      productId: product.id,
       address: addressController.addressData.toString(),
     );
     Get.snackbar("Payment Successful", "Your Service Booked");

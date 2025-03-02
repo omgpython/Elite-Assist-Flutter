@@ -16,13 +16,15 @@ class OrderModel {
     required this.order,
   });
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+  factory OrderModel.fromJson(Map<String, dynamic> json) =>
+      OrderModel(
         status: json["status"],
         message: json["message"],
         order: Order.fromJson(json["order"]),
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "status": status,
         "message": message,
         "order": order.toJson(),
@@ -32,15 +34,15 @@ class OrderModel {
 class Order {
   String uid;
   String uname;
-  String ucontact;
+  int ucontact;
   String pid;
   String pname;
   String ppic;
-  String amount;
-  String gstAmt;
-  String discountAmt;
-  String fees;
-  String totalAmount;
+  int amount;
+  int gstAmt;
+  int discountAmt;
+  int fees;
+  int totalAmount;
   String couponCode;
   String orderDate;
   String orderTime;
@@ -48,8 +50,14 @@ class Order {
   String time;
   String paymentType;
   String address;
+  String partnerId;
+  String partnerName;
+  String partnerContact;
+  String partnerPic;
+  String endDate;
+  String endTime;
   int status;
-  int isAasign;
+  bool isAasign;
   DateTime updatedAt;
   DateTime createdAt;
   String id;
@@ -73,6 +81,12 @@ class Order {
     required this.time,
     required this.paymentType,
     required this.address,
+    required this.partnerId,
+    required this.partnerName,
+    required this.partnerContact,
+    required this.partnerPic,
+    required this.endDate,
+    required this.endTime,
     required this.status,
     required this.isAasign,
     required this.updatedAt,
@@ -80,7 +94,8 @@ class Order {
     required this.id,
   });
 
-  factory Order.fromJson(Map<String, dynamic> json) => Order(
+  factory Order.fromJson(Map<String, dynamic> json) =>
+      Order(
         uid: json["uid"],
         uname: json["uname"],
         ucontact: json["ucontact"],
@@ -99,6 +114,12 @@ class Order {
         time: json["time"],
         paymentType: json["payment_type"],
         address: json["address"],
+        partnerId: json["partner_id"],
+        partnerName: json["partner_name"],
+        partnerContact: json["partner_contact"],
+        partnerPic: json["partner_pic"],
+        endDate: json["end_date"],
+        endTime: json["end_time"],
         status: json["status"],
         isAasign: json["is_aasign"],
         updatedAt: DateTime.parse(json["updated_at"]),
@@ -106,7 +127,8 @@ class Order {
         id: json["id"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "uid": uid,
         "uname": uname,
         "ucontact": ucontact,
@@ -125,6 +147,12 @@ class Order {
         "time": time,
         "payment_type": paymentType,
         "address": address,
+        "partner_id": partnerId,
+        "partner_name": partnerName,
+        "partner_contact": partnerContact,
+        "partner_pic": partnerPic,
+        "end_date": endDate,
+        "end_time": endTime,
         "status": status,
         "is_aasign": isAasign,
         "updated_at": updatedAt.toIso8601String(),

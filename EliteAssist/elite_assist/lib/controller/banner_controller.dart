@@ -21,7 +21,7 @@ class BannerController extends GetxController {
   Future<void> getBanner() async {
     isLoading.value = true;
     try {
-      final url = Uri.parse(ConstantData.BANNER_API);
+      final url = Uri.parse(ConstantData.GET_BANNER_API);
       var response = await http.get(url);
       if (response.statusCode == 200) {
         bannerModel = bannerModelFromJson(response.body);

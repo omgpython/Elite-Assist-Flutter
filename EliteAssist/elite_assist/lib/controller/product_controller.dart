@@ -36,7 +36,7 @@ class ProductController extends GetxController {
   }) async {
     isRelatedLoading.value = true;
     try {
-      final url = Uri.parse(ConstantData.RELATED_PRODUCT_API);
+      final url = Uri.parse(ConstantData.GET_RELATED_PRODUCT_API);
       var response = await http.post(
         url,
         body: {

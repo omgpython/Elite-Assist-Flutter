@@ -13,7 +13,7 @@
             {{$m}}
           </div>
         @endif
-        <a href="{{route('partnerss.create')}}" class="btn btn-success mb-3">+Add Partnear</a>
+        <a href="{{route('partnerss.create')}}" class="btn btn-success mb-3">+Add Partner</a>
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Partners</h5>
@@ -53,13 +53,13 @@
                     </td>
                     <td><a href="{{route('partnerss.edit',$item->id)}}" class="btn btn-primary">Edit</a></td>
                     <td>
-                      
-                        <form method="POST" action="/partnerss/{{$item->id}}" class="d-inline">
-                          @csrf
-                          @method('delete')
-                          <input name="_method" type="hidden" value="DELETE">
-                          <button type="submit" id="btndel" class="btn btn-danger content-icon show_confirm mt-1 ms-2" data-toggle="tooltip" title='Delete'><i class="fa fa-trash"></i>Delete</button>
-                        </form>              
+                      <form method="POST" action="/partnerss/{{$item->id}}" class="d-inline delete-form">
+                        @csrf
+                        @method('delete')
+                        <button type="button" class="btn btn-danger btn-delete" data-id="{{ $item->id }}" data-toggle="tooltip" title='Delete'>
+                          <i class="fa fa-trash"></i> Delete
+                        </button>
+                      </form>
                     </td>
                   </tr>
                 @endforeach
@@ -71,24 +71,28 @@
       </div>
     </div>
 </section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script type="text/javascript">
- $(document).ready(function () {
-        $(document).on('click', '#btndel', function (event) {
-            var form = $(this).closest("form");
-            event.preventDefault();
-            swal({
-                title: "DELETE",
-                text: "If you delete this, it will be gone forever.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    form.submit();
-                }
-            });
-        });
+  $(document).ready(function () {
+    $(document).on('click', '.btn-delete', function (event) {
+      event.preventDefault();
+      var form = $(this).closest(".delete-form");
+      swal({
+        title: "Are you sure you want to delete this item?",
+        text: "If you delete this, it will be gone forever.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          form.submit();
+        }
+      });
     });
+  });
 </script>
+
 @include('footer')

@@ -23,7 +23,7 @@ class SubServiceController extends GetxController {
   Future<void> getSubServices() async {
     try {
       isLoading.value = true;
-      final url = Uri.parse(ConstantData.SUB_SERVICE_API);
+      final url = Uri.parse(ConstantData.GET_SUB_SERVICE_API);
 
       var response = await http.post(url, body: {"id": id});
 
