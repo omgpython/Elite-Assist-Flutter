@@ -130,6 +130,9 @@ Route::post('/get/partner/booking',[PartnerBookingController::class, 'getPartner
 Route::post('/PartnerOrders',[PartnerAssignController::class, 'PartnerOrdersapi']);
 Route::post('/completed/job',[PartnerBookingController::class, 'getPartnerBookingCompleted']);
 Route::post("/api/addaddress",[AddressController::class, 'addAddress']);
+Route::post("/api/editaddress",[AddressController::class, 'editAddress']);
+Route::post("/api/deleteaddress",[AddressController::class, 'deleteAddress']);
+Route::post("/api/findaddress",[AddressController::class, 'findAddress']);
 
 Route::post("/job/start",[PartnerBookingController::class, 'jobstart']);
 Route::post("/job/end",[PartnerBookingController::class, 'jobfinish']);

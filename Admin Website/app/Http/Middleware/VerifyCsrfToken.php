@@ -34,6 +34,9 @@ class VerifyCsrfToken extends Middleware
         '/getorder/cancel/user',
         '/api/applycoupon',
         '/checkemail',
-        '/api/relatedproduct'
+        '/api/relatedproduct',
+        '/api/editaddress',
+        '/api/deleteaddress',
+        '/api/findaddress'
     ];
 }

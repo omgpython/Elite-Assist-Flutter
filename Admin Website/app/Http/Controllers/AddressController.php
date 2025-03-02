@@ -66,4 +66,79 @@ class AddressController extends Controller
             ];
         }
     }
+
+    public function findAddress(Request $request) {
+        if(isset($request->id)) {
+            $table = Address::find($request->id);
+            return [
+                "status"=>true,
+                "msg"=>"Address Found",
+                "address"=>array($table)
+            ];
+        } else {
+            return [
+                "status"=>false,
+                "msg"=>"Insufficient Parameters",
+                "address"=>null
+            ];
+        }
+    }
+
+    public function editAddress(Request $request){
+        if(isset($request->id) 
+        && isset($request->houseno)
+        && isset($request->street)
+        && isset($request->landmark)
+        && isset($request->area)
+        && isset($request->city)
+        && isset($request->state)
+        && isset($request->pincode)
+        && isset($request->type)){
+
+            $table = Address::find($request->id);
+            $table->houseno=$request->houseno;
+            $table->street=$request->street;
+            $table->landmark=$request->landmark;
+            $table->area=$request->area;
+            $table->city=$request->city;
+            $table->state=$request->state;
+            $table->pincode=$request->pincode;
+            $table->type=$request->type;
+            $table->save();
+    
+            return [
+                "status"=>true,
+                "msg"=>"Address Updated",
+                "address"=>array($table)
+            ];
+        
+        } else {
+            return [
+                "status"=>false,
+                "msg"=>"Insufficient Parameters",
+                "address"=>null
+            ];
+        }
+    }
+
+    public function deleteAddress(Request $request) {
+
+        if(isset($request->id)) {
+            $table = Address::find($request->id);
+            $table->delete();
+
+            return [
+                "status" => true,
+                "msg" => "Address Deleted",
+                "address"=>$table
+            ];
+        } else {
+            return [
+                "status"=>false,
+                "msg"=>"Insufficient Parameters",
+                "address"=>null
+            ];
+        }
+
+    }
 }
