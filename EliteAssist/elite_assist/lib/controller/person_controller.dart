@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:elite_assist/common_ui/custom_snackbar.dart';
 import 'package:elite_assist/generated/const_data.dart';
 import 'package:elite_assist/generated/pref_manager.dart';
 import 'package:elite_assist/model/person_model.dart';
@@ -16,14 +17,9 @@ class PersonController extends GetxController {
   PersonModel? model;
   PrefManager manager = PrefManager();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   final nameController = TextEditingController();
-  final emailController = TextEditingController(text: "h@gmail.com");
-  final passwordController = TextEditingController(text: "123123123");
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   final contactController = TextEditingController();
 
   RxBool isUserReg = false.obs;
@@ -46,23 +42,24 @@ class PersonController extends GetxController {
             "username": nameController.text.trim(),
             "password": passwordController.text.trim(),
             "email": emailController.text.trim(),
-            "phone": passwordController.text.trim(),
+            "phone": contactController.text.trim(),
           },
         );
         if (response1.statusCode == 200) {
           isUserReg.value = false;
           //log(response1.body, name: "REG DATA");
-          Get.snackbar(
-            "Register Successfully",
-            "Your account has created",
+          CustomSnackBar(
+            title: "Register Successfully",
+            message: "Your account has created",
           );
+          clear();
           Get.offAll(() => LoginScreen());
         }
       } else {
         isUserReg.value = false;
-        Get.snackbar(
-          "Email Already Registered",
-          "You must be login instead of register",
+        CustomSnackBar(
+          title: "Email Already Registered",
+          message: "You must be login instead of register",
         );
       }
     } catch (e) {
@@ -86,30 +83,74 @@ class PersonController extends GetxController {
         model = PersonModel.fromJson(jsonDecode(response.body));
         isUserLogin.value = false;
         manager.spAddUser(
-          id: model!.person.id,
-          email: model!.person.email,
+          id: model!.person.id.toString(),
+          email: model!.person.email.toString(),
           contact: model!.person.phone.toString(),
-          name: model!.person.username,
+          name: model!.person.username.toString(),
         );
-        isUserLogin.value = false;
-        Get.snackbar(
-          'Login Successfully',
-          'Welcome, ${model!.person.username}',
-          colorText: Colors.black,
-          backgroundColor: Colors.white,
+        clear();
+        CustomSnackBar(
+          title: 'Login Successfully',
+          message: 'Welcome, ${model!.person.username}',
         );
         Get.offAll(() => BottomNavScreen());
       } else {
         isUserLogin.value = false;
-        Get.snackbar(
-          'Incorrect',
-          'Please Check Email or Password',
+        CustomSnackBar(
+          title: 'Incorrect',
+          message: 'Please Check Email or Password',
         );
+        clear();
       }
     } catch (e) {
-      log(e.toString(), name: "ERROR");
+      log(e.toString(), name: "LOGIN ERROR");
       isUserLogin.value = false;
     }
+  }
+
+  RxBool isUserEdit = false.obs;
+
+  Future<void> editUser() async {
+    isUserEdit.value = true;
+    try {
+      final url = Uri.parse(ConstantData.EDIT_USER_API);
+      var response = await http.post(url, body: {
+        "id": manager.getUserId(),
+        "username": nameController.text.trim(),
+        "phone": contactController.text.trim(),
+      });
+
+      if (response.statusCode == 200) {
+        isUserEdit.value = false;
+        Get.back(result: true);
+        manager.spEditUser(
+          contact: contactController.text.trim(),
+          name: nameController.text.trim(),
+        );
+        CustomSnackBar(
+          title: "Information Update Success",
+          message: "Your information has been successfully updated.",
+        );
+        clear();
+      }
+    } catch (e) {
+      isUserEdit.value = false;
+      log(e.toString(), name: "UPDATE USER ERROR");
+    }
+  }
+
+  RxString userName = "".obs;
+
+  String getUserName() {
+    userName.value = manager.getUserName();
+    return userName.value;
+  }
+
+  void clear() {
+    nameController.clear();
+    emailController.clear();
+    passwordController.clear();
+    contactController.clear();
   }
 
   @override

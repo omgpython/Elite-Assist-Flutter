@@ -28,7 +28,7 @@ class VerifyCsrfToken extends Middleware
         '/job/end','/countOfCart',
         '/get/address',
         '/api/getaddress',
-        '/edit/profile/user',
+        '/api/edituser',
         '/getorder/pending/user',
         '/getorder/completed/user',
         '/getorder/cancel/user',

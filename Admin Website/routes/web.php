@@ -132,14 +132,13 @@ Route::post('/completed/job',[PartnerBookingController::class, 'getPartnerBookin
 Route::post("/api/addaddress",[AddressController::class, 'addAddress']);
 Route::post("/api/editaddress",[AddressController::class, 'editAddress']);
 Route::post("/api/deleteaddress",[AddressController::class, 'deleteAddress']);
-Route::post("/api/findaddress",[AddressController::class, 'findAddress']);
 
 Route::post("/job/start",[PartnerBookingController::class, 'jobstart']);
 Route::post("/job/end",[PartnerBookingController::class, 'jobfinish']);
 
 Route::get('/countOfCart',[OrderController::class,'getCountOfCart']);
 
-Route::post('/edit/profile/user',[PersonController::class,'editProfile']);
+Route::post('/api/edituser',[PersonController::class,'editProfile']);
 
 Route::post('/getorder/pending/user',[PartnerBookingController::class,'getPartnerBookingPendingCustomer']);
 

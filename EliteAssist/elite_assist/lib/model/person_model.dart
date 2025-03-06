@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final personModel = personModelFromJson(jsonString);
-
 import 'dart:convert';
 
 PersonModel personModelFromJson(String str) =>
@@ -36,47 +32,39 @@ class PersonModel {
 class Person {
   String username;
   String email;
-  int phone;
-  dynamic pic;
-  dynamic fullname;
   String password;
-  DateTime createdAt;
+  String phone;
   DateTime updatedAt;
+  DateTime createdAt;
   String id;
 
   Person({
     required this.username,
     required this.email,
-    required this.phone,
-    required this.pic,
-    required this.fullname,
     required this.password,
-    required this.createdAt,
+    required this.phone,
     required this.updatedAt,
+    required this.createdAt,
     required this.id,
   });
 
   factory Person.fromJson(Map<String, dynamic> json) => Person(
         username: json["username"],
         email: json["email"],
-        phone: json["phone"],
-        pic: json["pic"],
-        fullname: json["fullname"],
         password: json["password"],
-        createdAt: DateTime.parse(json["created_at"]),
+        phone: json["phone"],
         updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: DateTime.parse(json["created_at"]),
         id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
         "username": username,
         "email": email,
-        "phone": phone,
-        "pic": pic,
-        "fullname": fullname,
         "password": password,
-        "created_at": createdAt.toIso8601String(),
+        "phone": phone,
         "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt.toIso8601String(),
         "id": id,
       };
 }

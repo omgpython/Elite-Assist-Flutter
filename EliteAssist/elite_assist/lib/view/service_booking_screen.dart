@@ -1,4 +1,5 @@
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
+import 'package:elite_assist/common_ui/custom_snackbar.dart';
 import 'package:elite_assist/controller/address_controller.dart';
 import 'package:elite_assist/controller/booking_controller.dart';
 import 'package:elite_assist/generated/fonts.dart';
@@ -193,66 +194,9 @@ class ServiceBookingScreen extends StatelessWidget {
                               child: Obx(() => Text(controller.time.value)),
                             ),
                           )
-
-                          // Text(
-                          //   'Service Date :',
-                          //   style: TextStyle(
-                          //     fontSize: 18,
-                          //     fontFamily: Fonts.Roboto,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // ),
-                          // SizedBox(width: 10),
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     controller.selectDate(context);
-                          //   },
-                          //   child: Obx(
-                          //     () {
-                          //       return Text(
-                          //         controller.date.value,
-                          //         style: TextStyle(
-                          //           fontSize: 18,
-                          //           fontFamily: Fonts.Roboto,
-                          //           fontWeight: FontWeight.bold,
-                          //         ),
-                          //       );
-                          //     },
-                          //   ),
-                          // ),
                         ],
                       ),
                       SizedBox(height: 5),
-                      // Row(
-                      //   children: [
-                      //     Text(
-                      //       'Service Time :',
-                      //       style: TextStyle(
-                      //         fontSize: 18,
-                      //         fontFamily: Fonts.Roboto,
-                      //         fontWeight: FontWeight.bold,
-                      //       ),
-                      //     ),
-                      //     SizedBox(width: 10),
-                      //     GestureDetector(
-                      //       onTap: () {
-                      //         controller.selectTime(context);
-                      //       },
-                      //       child: Obx(
-                      //         () {
-                      //           return Text(
-                      //             controller.time.value,
-                      //             style: TextStyle(
-                      //               fontSize: 18,
-                      //               fontFamily: Fonts.Roboto,
-                      //               fontWeight: FontWeight.bold,
-                      //             ),
-                      //           );
-                      //         },
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                     ],
                   ),
                 ),
@@ -672,9 +616,15 @@ class ServiceBookingScreen extends StatelessWidget {
                         ),
                         onSwipe: () {
                           if (controller.date.value == "Select Date") {
-                            Get.snackbar("Date Required", "Please Select Date");
+                            CustomSnackBar(
+                              title: "Date Required",
+                              message: "Please Select Date",
+                            );
                           } else if (controller.time.value == "Select Time") {
-                            Get.snackbar("Time Required", "Please Select Time");
+                            CustomSnackBar(
+                              title: "Time Required",
+                              message: "Please Select Time",
+                            );
                           } else if (addressController.addressData.value ==
                               '') {
                             Get.snackbar(
@@ -716,7 +666,7 @@ class ServiceBookingScreen extends StatelessWidget {
     );
   }
 
-  void init() {
+  Future<void> init() async {
     controller.amount.value = int.parse(product.price);
     controller.calculateAmount();
     addressController.getAddress();
@@ -740,7 +690,10 @@ class ServiceBookingScreen extends StatelessWidget {
 // Error callback
   void _handlePaymentError(PaymentFailureResponse response) {
     print("Payment Failed: ${response.message}");
-    Get.snackbar("Payment Failed", "Please retry payment");
+    CustomSnackBar(
+      title: "Payment Failed",
+      message: "Please retry payment",
+    );
   }
 
   void openCheckout() {

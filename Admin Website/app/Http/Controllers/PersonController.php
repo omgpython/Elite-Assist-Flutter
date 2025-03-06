@@ -71,12 +71,11 @@ public function checkEmail(Request $request){
 
 
         if(isset($table)){
-                return
-                [
-                    "status"=>true,
-                    "message"=>"Login Successfully!!!",
-                    "person"=>$table
-                ];
+            return [
+                "status"=>true,
+                "message"=>"Login Successfully!!!",
+                "person"=>$table
+            ];
         }else{
             return [
                 "status"=>false,
@@ -97,35 +96,30 @@ public function checkEmail(Request $request){
     public function editProfile(Request $request) {
         if(isset($request->username) &&
         isset($request->phone) &&
-        isset($request->_id) 
+        isset($request->id) 
         ){
             
-            $id=$request->_id;
+            $id=$request->id;
             $phone=$request->phone;
-            $username=$request->username;
-            $pass=$request->pass;
+            $username=$request->username;    
     
-    
-                $data=Person::whereId($id)->first();
-                if(isset($pass))
-                    $data->pass=$pass;
-                $data->phone=$phone;
-    
-                $data->username=$username;
-                $data->save();
-                return [
-                    "status"=>true,
-                    "message"=>"Updated Successfully!!",
-                    "person"=>$data
-                ];
-    
-    
+            $data=Person::whereId($id)->first();
+            
+            $data->phone=$phone;
+            $data->username=$username;
+            $data->save();
+
+            return [
+                "status"=>true,
+                "message"=>"Updated Successfully!!",
+                "person"=>$data
+            ];
     
         }else{
-                return [
-                    "status"=>false,
-                    "message"=>"Insufficient Parameter ",
-                    "person"=>null
+            return [
+                "status"=>false,
+                "message"=>"Insufficient Parameter ",
+                "person"=>null
             ];
         }
     }

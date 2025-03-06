@@ -1,24 +1,24 @@
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:elite_assist/controller/address_controller.dart';
-import 'package:elite_assist/generated/fonts.dart';
+import 'package:elite_assist/model/address_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../common_ui/custom_appbar.dart';
+
 class AddAddressScreen extends StatelessWidget {
-  AddAddressScreen({super.key});
+  Address? address;
+
+  AddAddressScreen({super.key, this.address});
 
   final controller = Get.put(AddressController());
 
   @override
   Widget build(BuildContext context) {
+    setValue();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Add New Address',
-          style: TextStyle(
-            fontFamily: Fonts.BebasNeue,
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: address != null ? 'Edit Address' : 'Add New Address',
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -43,7 +43,8 @@ class AddAddressScreen extends StatelessWidget {
                 CustomRadioButton(
                   unSelectedColor: Colors.white,
                   selectedColor: Colors.black,
-                  defaultSelected: 'Home',
+                  defaultSelected:
+                      address != null ? address!.type : controller.addressType,
                   buttonLables: ['Home', 'Office', 'Other'],
                   buttonValues: ['Home', 'Office', 'Other'],
                   radioButtonValue: (value) {
@@ -54,6 +55,7 @@ class AddAddressScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 TextField(
                   controller: controller.houseNoController,
+                  textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'House No. / Office No.',
@@ -63,6 +65,7 @@ class AddAddressScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 TextField(
                   controller: controller.streetController,
+                  textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'Street Address',
@@ -72,6 +75,7 @@ class AddAddressScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 TextField(
                   controller: controller.landmarkController,
+                  textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'Landmark',
@@ -81,6 +85,7 @@ class AddAddressScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 TextField(
                   controller: controller.areaController,
+                  textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'Area',
@@ -90,6 +95,7 @@ class AddAddressScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 TextField(
                   controller: controller.cityController,
+                  textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'City',
@@ -99,6 +105,7 @@ class AddAddressScreen extends StatelessWidget {
                 SizedBox(height: 10),
                 TextField(
                   controller: controller.stateController,
+                  textCapitalization: TextCapitalization.sentences,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                     labelText: 'State',
@@ -128,7 +135,11 @@ class AddAddressScreen extends StatelessWidget {
                       } else {
                         return FilledButton(
                           onPressed: () {
-                            controller.addAddress();
+                            if (address != null) {
+                              controller.updateAddress(id: address!.id);
+                            } else {
+                              controller.addAddress();
+                            }
                           },
                           style: FilledButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -136,7 +147,9 @@ class AddAddressScreen extends StatelessWidget {
                             ),
                             backgroundColor: Colors.black,
                           ),
-                          child: Text('Add Address'),
+                          child: Text(
+                            address != null ? 'Update Address' : 'Add Address',
+                          ),
                         );
                       }
                     },
@@ -148,5 +161,20 @@ class AddAddressScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void setValue() {
+    if (address != null) {
+      controller.houseNoController.text = address!.houseno;
+      controller.streetController.text = address!.street;
+      controller.landmarkController.text = address!.landmark;
+      controller.areaController.text = address!.area;
+      controller.cityController.text = address!.city;
+      controller.stateController.text = address!.state;
+      controller.pinCodeController.text = address!.pincode;
+      controller.addressType = address!.type;
+    } else {
+      controller.clear();
+    }
   }
 }

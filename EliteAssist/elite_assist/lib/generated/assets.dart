@@ -4,6 +4,7 @@ class Assets {
 
   static const String animSplash = 'assets/anim/splash.json';
   static const String animSuccess = 'assets/anim/success.json';
+  static const String audioSound = 'assets/audio/sound.mp3';
   static const String fontsBebasNeueRegular =
       'assets/fonts/BebasNeue-Regular.ttf';
   static const String fontsBonaNovaSCBold = 'assets/fonts/BonaNovaSC-Bold.ttf';

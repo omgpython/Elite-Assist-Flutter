@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:panara_dialogs/panara_dialogs.dart';
 
 class AddressScreen extends StatelessWidget {
   AddressScreen({super.key});
@@ -37,7 +38,14 @@ class AddressScreen extends StatelessWidget {
             );
           } else if (controller.model!.address.isEmpty) {
             return Center(
-              child: Text('No Address Found!!!'),
+              child: Text(
+                'No Address Found!!!',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: Fonts.BebasNeue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             );
           } else {
             return ListView.separated(
@@ -49,7 +57,13 @@ class AddressScreen extends StatelessWidget {
                     motion: ScrollMotion(),
                     children: [
                       SlidableAction(
-                        onPressed: (context) {},
+                        onPressed: (context) {
+                          Get.to(
+                            () => AddAddressScreen(
+                              address: address,
+                            ),
+                          );
+                        },
                         icon: Icons.edit,
                         label: 'Edit',
                         backgroundColor: Colors.green,
@@ -60,7 +74,12 @@ class AddressScreen extends StatelessWidget {
                     motion: ScrollMotion(),
                     children: [
                       SlidableAction(
-                        onPressed: (context) {},
+                        onPressed: (context) {
+                          showAlertDialog(
+                            context: context,
+                            id: address.id,
+                          );
+                        },
                         icon: Icons.delete,
                         label: 'Delete',
                         backgroundColor: Colors.red,
@@ -96,6 +115,22 @@ class AddressScreen extends StatelessWidget {
         tooltip: 'Add New Address',
         child: Icon(Icons.add, color: Colors.white),
       ),
+    );
+  }
+
+  void showAlertDialog({required BuildContext context, required String id}) {
+    PanaraConfirmDialog.show(
+      context,
+      title: "Delete Address",
+      message: "Are sure want to delete this address?",
+      confirmButtonText: "Sure",
+      cancelButtonText: "Cancel",
+      onTapCancel: Get.back,
+      onTapConfirm: () {
+        controller.deleteAddress(id: id);
+      },
+      panaraDialogType: PanaraDialogType.error,
+      barrierDismissible: false,
     );
   }
 }

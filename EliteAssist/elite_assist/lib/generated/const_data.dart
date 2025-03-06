@@ -11,10 +11,11 @@ class ConstantData {
 
 //API Address
 
-  //Login - Register
+  //User
   static final String REGISTER_USER_API = SERVER_ADDRESS + "register_user";
   static final String CHECK_USER_API = SERVER_ADDRESS + "checkemail";
   static final String LOGIN_USER_API = SERVER_ADDRESS + "login";
+  static final String EDIT_USER_API = SERVER_ADDRESS + "api/edituser";
 
   //Banner
   static final String GET_BANNER_API = SERVER_ADDRESS + "api/getbanner";

@@ -67,23 +67,6 @@ class AddressController extends Controller
         }
     }
 
-    public function findAddress(Request $request) {
-        if(isset($request->id)) {
-            $table = Address::find($request->id);
-            return [
-                "status"=>true,
-                "msg"=>"Address Found",
-                "address"=>array($table)
-            ];
-        } else {
-            return [
-                "status"=>false,
-                "msg"=>"Insufficient Parameters",
-                "address"=>null
-            ];
-        }
-    }
-
     public function editAddress(Request $request){
         if(isset($request->id) 
         && isset($request->houseno)

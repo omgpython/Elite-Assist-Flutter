@@ -13,21 +13,27 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   Product product;
   String? appBarString;
 
   ProductDetailScreen({super.key, required this.product, this.appBarString});
 
+  @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final controller = Get.put(ProductController());
+
   final vidController = Get.put(VideoController());
 
   @override
   Widget build(BuildContext context) {
-    vidController.initializePlayer(product.productVid);
+    vidController.initializePlayer(widget.product.productVid);
     controller.getRelatedProduct(
-      cat_id: product.subServiceId,
-      prod_id: product.id,
+      cat_id: widget.product.subServiceId,
+      prod_id: widget.product.id,
     );
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +44,7 @@ class ProductDetailScreen extends StatelessWidget {
         ),
         centerTitle: true,
         title: Text(
-          appBarString ?? product.productName,
+          widget.appBarString ?? widget.product.productName,
           style: TextStyle(
             fontFamily: Fonts.BebasNeue,
           ),
@@ -63,8 +69,10 @@ class ProductDetailScreen extends StatelessWidget {
                             controller.currentIndex.value = index;
                           },
                         ),
-                        items: [product.productPic1, product.productPic2]
-                            .map((img) {
+                        items: [
+                          widget.product.productPic1,
+                          widget.product.productPic2
+                        ].map((img) {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
@@ -149,7 +157,7 @@ class ProductDetailScreen extends StatelessWidget {
                                   width:
                                       MediaQuery.of(context).size.width * 0.7,
                                   child: Text(
-                                    product.productName,
+                                    widget.product.productName,
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -165,7 +173,7 @@ class ProductDetailScreen extends StatelessWidget {
                                 CustomSvgIcon(image: Assets.iconsRupee),
                                 SizedBox(width: 5),
                                 Text(
-                                  product.price,
+                                  widget.product.price,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -196,7 +204,7 @@ class ProductDetailScreen extends StatelessWidget {
                                 CustomSvgIcon(image: Assets.iconsTimer),
                                 SizedBox(width: 5),
                                 Text(
-                                  "Less Then ${product.time} Hour",
+                                  "Less Then ${widget.product.time} Hour",
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -269,7 +277,7 @@ class ProductDetailScreen extends StatelessWidget {
                             DashedLine(),
                             SizedBox(height: 5),
                             Text(
-                              product.details,
+                              widget.product.details,
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -280,139 +288,154 @@ class ProductDetailScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 10),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Text(
-                          'Related Services',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: Fonts.BebasNeue,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        height: 200,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(color: Colors.white, blurRadius: 20),
-                          ],
-                        ),
-                        child: Obx(
-                          () {
-                            if (controller.isRelatedLoading.value) {
-                              return Center(
-                                child: CircularProgressIndicator.adaptive(),
-                              );
-                            } else {
-                              return ListView.builder(
-                                itemCount:
-                                    controller.relatedModel!.product.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  var relatedProduct =
-                                      controller.relatedModel!.product[index];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      // Get.snackbar("title", "");
-                                      // Get.to(
-                                      //   () => ProductDetailScreen(
-                                      //     product: relatedProduct,
-                                      //     appBarString:
-                                      //         relatedProduct.productName,
-                                      //   ),
-                                      // );
-                                    },
-                                    child: Container(
-                                      height: 100,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.9,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Colors.white,
-                                      ),
-                                      child: Card(
-                                        margin: EdgeInsets.only(
-                                          left: 10,
-                                          right: 10,
-                                          bottom: 15,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Expanded(
-                                              flex: 3,
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(10),
-                                                  topRight: Radius.circular(10),
-                                                ),
-                                                child: Image.network(
-                                                  height: double.infinity,
-                                                  width: double.infinity,
-                                                  relatedProduct.productPic1,
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 10,
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      relatedProduct
-                                                          .productName,
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontFamily:
-                                                            Fonts.BonaNovaSC,
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.currency_rupee,
-                                                          size: 18,
-                                                        ),
-                                                        Text(
-                                                          relatedProduct.price,
-                                                          style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontFamily: Fonts
-                                                                .BonaNovaSC,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 10),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width,
+                      //   child: Text(
+                      //     'Related Services',
+                      //     textAlign: TextAlign.center,
+                      //     style: TextStyle(
+                      //       fontSize: 25,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontFamily: Fonts.BebasNeue,
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(height: 10),
+                      // Container(
+                      //   height: 200,
+                      //   width: MediaQuery.of(context).size.width,
+                      //   decoration: BoxDecoration(
+                      //     color: Colors.white,
+                      //     boxShadow: [
+                      //       BoxShadow(color: Colors.white, blurRadius: 20),
+                      //     ],
+                      //   ),
+                      //   child: Obx(
+                      //     () {
+                      //       if (controller.isRelatedLoading.value) {
+                      //         return Center(
+                      //           child: CircularProgressIndicator.adaptive(),
+                      //         );
+                      //       } else {
+                      //         return ListView.builder(
+                      //           itemCount:
+                      //               controller.relatedModel!.product.length,
+                      //           scrollDirection: Axis.horizontal,
+                      //           itemBuilder: (context, index) {
+                      //             var relatedProduct =
+                      //                 controller.relatedModel!.product[index];
+                      //             return GestureDetector(
+                      //               onTap: () {
+                      //                 // CustomSnackBar(
+                      //                 //   title: relatedProduct.toString(),
+                      //                 //   message: relatedProduct.price,
+                      //                 // );
+                      //                 Get.offAll(() {
+                      //                   ProductDetailScreen(
+                      //                     product: relatedProduct,
+                      //                     appBarString:
+                      //                         relatedProduct.productName,
+                      //                   );
+                      //                 });
+                      //                 // Get.to(() {
+                      //                 //   ProductDetailScreen(
+                      //                 //     product: relatedProduct,
+                      //                 //     appBarString:
+                      //                 //         relatedProduct.productName,
+                      //                 //   );
+                      //                 // });
+                      //                 // setState(() {
+                      //                 //   widget.product = relatedProduct;
+                      //                 //   widget.appBarString =
+                      //                 //       relatedProduct.productName;
+                      //                 // });
+                      //               },
+                      //               child: Container(
+                      //                 height: 100,
+                      //                 width: MediaQuery.of(context).size.width *
+                      //                     0.9,
+                      //                 decoration: BoxDecoration(
+                      //                   borderRadius: BorderRadius.circular(20),
+                      //                   color: Colors.white,
+                      //                 ),
+                      //                 child: Card(
+                      //                   margin: EdgeInsets.only(
+                      //                     left: 10,
+                      //                     right: 10,
+                      //                     bottom: 15,
+                      //                   ),
+                      //                   child: Column(
+                      //                     children: [
+                      //                       Expanded(
+                      //                         flex: 3,
+                      //                         child: ClipRRect(
+                      //                           borderRadius: BorderRadius.only(
+                      //                             topLeft: Radius.circular(10),
+                      //                             topRight: Radius.circular(10),
+                      //                           ),
+                      //                           child: Image.network(
+                      //                             height: double.infinity,
+                      //                             width: double.infinity,
+                      //                             relatedProduct.productPic1,
+                      //                             fit: BoxFit.fill,
+                      //                           ),
+                      //                         ),
+                      //                       ),
+                      //                       Expanded(
+                      //                         child: Padding(
+                      //                           padding: EdgeInsets.symmetric(
+                      //                             horizontal: 10,
+                      //                           ),
+                      //                           child: Row(
+                      //                             mainAxisAlignment:
+                      //                                 MainAxisAlignment
+                      //                                     .spaceBetween,
+                      //                             children: [
+                      //                               Text(
+                      //                                 relatedProduct
+                      //                                     .productName,
+                      //                                 style: TextStyle(
+                      //                                   fontSize: 15,
+                      //                                   fontWeight:
+                      //                                       FontWeight.bold,
+                      //                                   fontFamily:
+                      //                                       Fonts.BonaNovaSC,
+                      //                                 ),
+                      //                               ),
+                      //                               Row(
+                      //                                 children: [
+                      //                                   Icon(
+                      //                                     Icons.currency_rupee,
+                      //                                     size: 18,
+                      //                                   ),
+                      //                                   Text(
+                      //                                     relatedProduct.price,
+                      //                                     style: TextStyle(
+                      //                                       fontSize: 15,
+                      //                                       fontWeight:
+                      //                                           FontWeight.bold,
+                      //                                       fontFamily: Fonts
+                      //                                           .BonaNovaSC,
+                      //                                     ),
+                      //                                   ),
+                      //                                 ],
+                      //                               )
+                      //                             ],
+                      //                           ),
+                      //                         ),
+                      //                       )
+                      //                     ],
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             );
+                      //           },
+                      //         );
+                      //       }
+                      //     },
+                      //   ),
+                      // ),
+                      // SizedBox(height: 10),
                     ],
                   ),
                 ),
@@ -423,7 +446,7 @@ class ProductDetailScreen extends StatelessWidget {
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  Get.to(() => ServiceBookingScreen(product: product));
+                  Get.to(() => ServiceBookingScreen(product: widget.product));
                 },
                 style: FilledButton.styleFrom(
                   shape: RoundedRectangleBorder(

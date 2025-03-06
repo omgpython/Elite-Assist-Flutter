@@ -88,7 +88,6 @@ class OrderController extends Controller
         }
     }
 
-
     public function updateAssign($id,$pid) {
             $product = Product::where('_id',$pid)->get()->first();
             $sid = $product->SubService_id;

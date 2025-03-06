@@ -31,7 +31,19 @@ class PrefManager {
       await pref!.setString(ConstantData.KEY_EMAIL_SP, email);
       await pref!.setString(ConstantData.KEY_NAME_SP, name);
     } catch (e) {
-      log(e.toString(), name: "SP ERROR");
+      log(e.toString(), name: "SP ADD ERROR");
+    }
+  }
+
+  Future<void> spEditUser({
+    required String contact,
+    required String name,
+  }) async {
+    try {
+      await pref!.setString(ConstantData.KEY_CONTACT_SP, contact);
+      await pref!.setString(ConstantData.KEY_NAME_SP, name);
+    } catch (e) {
+      log(e.toString(), name: "SP EDIT ERROR");
     }
   }
 

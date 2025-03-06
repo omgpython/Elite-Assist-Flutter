@@ -1,9 +1,9 @@
 import 'package:elite_assist/generated/assets.dart';
 import 'package:elite_assist/generated/fonts.dart';
-import 'package:elite_assist/generated/pref_manager.dart';
 import 'package:elite_assist/view/about_us_screen.dart';
 import 'package:elite_assist/view/address_screen.dart';
 import 'package:elite_assist/view/contact_us_screen.dart';
+import 'package:elite_assist/view/edit_profile_screen.dart';
 import 'package:elite_assist/view/faq_screen.dart';
 import 'package:elite_assist/view/login_screen.dart';
 import 'package:elite_assist/view/privacy_policy_screen.dart';
@@ -13,10 +13,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 
+import '../controller/person_controller.dart';
+
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
-  PrefManager manager = PrefManager();
+  final controller = Get.put(PersonController());
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +66,19 @@ class ProfileScreen extends StatelessWidget {
                       color: Colors.white,
                     ),
                     SizedBox(width: 5),
-                    Text(
-                      manager.getUserName(),
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: Fonts.BonaNovaSC,
-                        color: Colors.white,
-                      ),
-                    ),
+                    Obx(
+                      () {
+                        return Text(
+                          controller.getUserName(),
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: Fonts.BonaNovaSC,
+                            color: Colors.white,
+                          ),
+                        );
+                      },
+                    )
                   ],
                 ),
                 SizedBox(height: 12),
@@ -85,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 5),
                     Text(
-                      manager.getEmail(),
+                      controller.manager.getEmail(),
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -100,7 +106,12 @@ class ProfileScreen extends StatelessWidget {
                   width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 12),
                   child: FilledButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      bool result = await Get.to(() => EditProfileScreen());
+                      if (result) {
+                        controller.getUserName();
+                      }
+                    },
                     style: FilledButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -127,7 +138,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   CustomListTile(
                     leading: Icons.home,
-                    tittle: 'My Addresses',
+                    tittle: 'My Address',
                     onTap: () {
                       Get.to(() => AddressScreen());
                     },
@@ -223,7 +234,7 @@ class ProfileScreen extends StatelessWidget {
       cancelButtonText: "Cancel",
       onTapCancel: Get.back,
       onTapConfirm: () {
-        manager.logoutUser();
+        controller.manager.logoutUser();
         Get.offAll(() => LoginScreen());
       },
       panaraDialogType: PanaraDialogType.normal,

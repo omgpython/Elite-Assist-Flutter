@@ -20,6 +20,7 @@ analyzer:
     avoid_print: ignore
     no_leading_underscores_for_local_identifiers: ignore
     prefer_adjacent_string_concatenation: ignore
+    prefer_const_constructors_in_immutables: ignore
 include: package:flutter_lints/flutter.yaml
 
 linter:

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:elite_assist/common_ui/custom_snackbar.dart';
 import 'package:elite_assist/generated/const_data.dart';
 import 'package:elite_assist/generated/pref_manager.dart';
 import 'package:elite_assist/model/address_model.dart';
@@ -54,7 +55,10 @@ class AddressController extends GetxController {
         clear();
         Get.back();
         getAddress();
-        Get.snackbar("Address Added", "New Address Will Registered");
+        CustomSnackBar(
+          message: "New Address Will Registered",
+          title: "Address Added",
+        );
       }
     } catch (e) {
       log(e.toString(), name: "ADDRESS ADD ERROR");
@@ -96,6 +100,64 @@ class AddressController extends GetxController {
     }
   }
 
+  Future<void> updateAddress({required String id}) async {
+    try {
+      isAddressAdd.value = true;
+      final url = Uri.parse(ConstantData.EDIT_ADDRESS_API);
+      var response = await http.post(
+        url,
+        body: {
+          "id": id,
+          "houseno": houseNoController.text.trim(),
+          "street": streetController.text.trim(),
+          "landmark": landmarkController.text.trim(),
+          "area": areaController.text.trim(),
+          "city": cityController.text.trim(),
+          "state": stateController.text.trim(),
+          "pincode": pinCodeController.text.trim(),
+          "type": addressType,
+        },
+      );
+      if (response.statusCode == 200) {
+        //log(response.body, name: "ADDRESS ADD");
+        model = addressModelFromJson(response.body);
+        isAddressAdd.value = false;
+        clear();
+        Get.back();
+        getAddress();
+        CustomSnackBar(
+          message: "Updated Address Will Registered",
+          title: "Address Updated",
+        );
+      }
+    } catch (e) {
+      log(e.toString(), name: "ADDRESS UPDATE ERROR");
+      isAddressAdd.value = false;
+    }
+  }
+
+  Future<void> deleteAddress({required String id}) async {
+    try {
+      final url = Uri.parse(ConstantData.DELETE_ADDRESS_API);
+      var response = await http.post(
+        url,
+        body: {
+          'id': id,
+        },
+      );
+      if (response.statusCode == 200) {
+        Get.back();
+        getAddress();
+        CustomSnackBar(
+          title: 'Address Deletion Successful',
+          message: 'Your address has been successfully removed',
+        );
+      }
+    } catch (e) {
+      log(e.toString(), name: "ADDRESS DELETE ERROR");
+    }
+  }
+
   void clear() {
     addressType = 'Home';
     houseNoController.clear();
@@ -109,14 +171,7 @@ class AddressController extends GetxController {
 
   @override
   void onClose() {
-    addressType = 'Home';
-    houseNoController.clear();
-    streetController.clear();
-    landmarkController.clear();
-    areaController.clear();
-    cityController.clear();
-    stateController.clear();
-    pinCodeController.clear();
+    clear();
     super.onClose();
   }
 }
