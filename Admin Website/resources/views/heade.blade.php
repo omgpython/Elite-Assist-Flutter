@@ -152,7 +152,7 @@
                             </span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="/orders">
                             <span class="icon-menu feather-icon">
                                 <i class="fa-solid fa-gift"></i>
@@ -161,6 +161,45 @@
                                 Orders
                             </span>
                         </a>
+                    </li> --}}
+                    <li>
+                        <a href="javascript:void(0);">
+                            <span class="icon-menu feather-icon">
+                                <i class="bi bi-layers" style="font-size: 18px"></i>
+                            </span>
+                            <span class="menu-text">
+                                orders
+                            </span>
+                        </a>
+                        <ul class="sub-menu">
+							<li>
+                                <a href="/order">
+                                    <span class="icon-dash">
+                                    </span>
+                                    <span class="menu-text">
+                                        order
+                                    </span>
+                                </a>
+                            </li>
+							<li>
+                                <a href="/pendingorder">
+                                    <span class="icon-dash">
+                                    </span>
+                                    <span class="menu-text">
+                                        pendingorder
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/completedorder">
+                                    <span class="icon-dash">
+                                    </span>
+                                    <span class="menu-text">
+                                        completd orders
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="/coupens">

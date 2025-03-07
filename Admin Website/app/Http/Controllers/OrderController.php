@@ -25,6 +25,37 @@ class OrderController extends Controller
         }
 
     }
+    public function pendingorder(){
+
+        $uid=session()->get('id');
+        $username=session()->get('username');
+        $status=session()->get('status');
+        $Admin_pic=session()->get('Admin_pic');
+        if(!isset($uid)){
+            return redirect("/AdminLogin");
+        }else{
+            $data=order::where('is_aasign',true)->
+            where('status',0)->paginate(2);
+            return view('orders.pandding',compact('data','Admin_pic','username'));
+            // return view('orders.index',compact('data','Admin_pic','username'));
+        }
+    }
+
+    public function completedorder(){
+        $uid=session()->get('id');
+        $username=session()->get('username');
+        $status=session()->get('status');
+        $Admin_pic=session()->get('Admin_pic');
+        if(!isset($uid)){
+            return redirect("/AdminLogin");
+        }else{
+            $data=order::where('is_aasign',true)->
+            where('status',1)->paginate(2);
+            return view('orders.compalted',compact('data','Admin_pic','username'));
+            // return view('orders.index',compact('data','Admin_pic','username'));
+        }
+    }
+
 
     // public function addOrder(Request $request)  {
     //     if(isset($request->uid)
@@ -113,10 +144,11 @@ class OrderController extends Controller
                 'data'=>$data
             ];
         }else{
-            return
-            ['status'=>false,
-            'message'=>"no data",
-            'data'=>null];
+            return [
+                'status'=>false,
+                'message'=>"no data",
+                'data'=>null
+            ];
         }
     }
 
