@@ -47,4 +47,5 @@ class ConstantData {
 
   //Orders
   static final String ADD_ORDER_API = SERVER_ADDRESS + "api/addOrder";
+  static final String GET_ORDER_API = SERVER_ADDRESS + "api/getOrders";
 }

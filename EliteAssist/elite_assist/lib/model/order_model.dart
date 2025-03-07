@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final orderModel = orderModelFromJson(jsonString);
+
 import 'dart:convert';
 
 OrderModel orderModelFromJson(String str) =>
@@ -8,7 +12,7 @@ String orderModelToJson(OrderModel data) => json.encode(data.toJson());
 class OrderModel {
   bool status;
   String message;
-  Order order;
+  List<Order> order;
 
   OrderModel({
     required this.status,
@@ -16,25 +20,23 @@ class OrderModel {
     required this.order,
   });
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) =>
-      OrderModel(
+  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         status: json["status"],
         message: json["message"],
-        order: Order.fromJson(json["order"]),
+        order: List<Order>.from(json["order"].map((x) => Order.fromJson(x))),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
-        "order": order.toJson(),
+        "order": List<dynamic>.from(order.map((x) => x.toJson())),
       };
 }
 
 class Order {
   String uid;
   String uname;
-  int ucontact;
+  String ucontact;
   String pid;
   String pname;
   String ppic;
@@ -94,11 +96,10 @@ class Order {
     required this.id,
   });
 
-  factory Order.fromJson(Map<String, dynamic> json) =>
-      Order(
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
         uid: json["uid"],
         uname: json["uname"],
-        ucontact: json["ucontact"],
+        ucontact: json["ucontact"].toString(),
         pid: json["pid"],
         pname: json["pname"],
         ppic: json["ppic"],
@@ -127,8 +128,7 @@ class Order {
         id: json["id"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "uid": uid,
         "uname": uname,
         "ucontact": ucontact,

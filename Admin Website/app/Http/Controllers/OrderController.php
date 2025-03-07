@@ -70,22 +70,18 @@ class OrderController extends Controller
     // }
 
     public function getOrders(Request $request) {
-        $data=Order::where('status',0)
-        ->where("uid",$request->uid)
-        ->get();
-        if(isset($data)){
-            return [
-                "status"=>true,
-                "message"=>"getting data...",
-                "order"=>$data
-            ];
-        }else{
-            return [
-                "status"=>false,
-                "message"=>"Empty Cart...",
-                "order"=>null
-            ];
+        $data=Order::where("uid",$request->uid)->get();
+        foreach($data as $item){
+            $item->ppic = asset('product') ."/".$item->ppic;
         }
+        foreach($data as $item){
+            $item->partner_pic = asset('partners') ."/".$item->partner_pic;
+        }
+        return [
+            "status"=>true,
+            "message"=>"getting data...",
+            "order"=>$data
+        ];
     }
 
     public function updateAssign($id,$pid) {

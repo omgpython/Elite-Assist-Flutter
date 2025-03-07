@@ -16,6 +16,7 @@ class Assets {
       'assets/fonts/Roboto_Condensed-Medium.ttf';
   static const String fontsRobotoSemiCondensedRegular =
       'assets/fonts/Roboto_SemiCondensed-Regular.ttf';
+  static const String iconsPhone = 'assets/icons/phone.svg';
   static const String iconsReview = 'assets/icons/review.svg';
   static const String iconsRupee = 'assets/icons/rupee.svg';
   static const String iconsService = 'assets/icons/service.svg';

@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:elite_assist/generated/const_data.dart';
 import 'package:elite_assist/generated/pref_manager.dart';
 import 'package:elite_assist/model/apply_coupon_model.dart';
+import 'package:elite_assist/model/order_model.dart';
 import 'package:elite_assist/view/success_booking_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -182,6 +183,30 @@ class BookingController extends GetxController {
     } catch (e) {
       log(e.toString(), name: "ORDER ADD ERROR");
       isAddLoading.value = false;
+    }
+  }
+
+  RxBool isGetLoading = false.obs;
+
+  OrderModel? model;
+
+  Future<void> getOrders() async {
+    isGetLoading.value = true;
+    try {
+      final url = Uri.parse(ConstantData.GET_ORDER_API);
+      var response = await http.post(
+        url,
+        body: {'uid': manager.getUserId()},
+      );
+      if (response.statusCode == 200) {
+        isGetLoading.value = false;
+        model = orderModelFromJson(response.body);
+        //log(response.body, name: "GET ORDER");
+      }
+    } catch (e, d) {
+      isGetLoading.value = false;
+      log(e.toString(), name: "ORDER GET ERROR");
+      log(d.toString(), name: "ORDER GET ERROR");
     }
   }
 }

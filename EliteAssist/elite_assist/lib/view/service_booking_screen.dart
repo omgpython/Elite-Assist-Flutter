@@ -646,7 +646,7 @@ class ServiceBookingScreen extends StatelessWidget {
                                 openCheckout();
                               }
                             } else {
-                              controller.pay_type = "Nothing to Pay";
+                              controller.pay_type = "ONLINE";
                               controller.addOrder(
                                 productId: product.id,
                                 address: addressController.addressData.value,
