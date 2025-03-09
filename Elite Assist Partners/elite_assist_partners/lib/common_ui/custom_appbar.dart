@@ -1,6 +1,7 @@
-import 'package:elite_assist/generated/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../generated/fonts.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -13,15 +14,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: Colors.black,
       foregroundColor: Colors.white,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Colors.grey,
-      ),
-      title: Text(
-        title,
-        style: TextStyle(
-          fontFamily: Fonts.BebasNeue,
-        ),
-      ),
+      systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: Colors.grey),
+      title: Text(title, style: TextStyle(fontFamily: Fonts.BebasNeue)),
     );
   }
 

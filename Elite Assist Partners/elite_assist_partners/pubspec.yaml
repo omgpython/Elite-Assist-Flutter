@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   get: ^4.7.2
   http: ^1.3.0
+  shared_preferences: ^2.5.2
   flutter_svg_provider: ^1.0.7
 
 dev_dependencies:
@@ -64,6 +65,22 @@ flutter:
     - assets/anim/
     - assets/images/
     - assets/icons/
+
+  fonts:
+    - family: BonaNovaSC
+      fonts:
+        - asset: assets/fonts/BonaNovaSC-Bold.ttf
+        - asset: assets/fonts/BonaNovaSC-Regular.ttf
+
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto_SemiCondensed-Regular.ttf
+        - asset: assets/fonts/Roboto_Condensed-Medium.ttf
+        - asset: assets/fonts/Roboto_Condensed-Bold.ttf
+
+    - family: BebasNeue
+      fonts:
+        - asset: assets/fonts/BebasNeue-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

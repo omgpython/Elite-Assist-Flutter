@@ -2,5 +2,15 @@
 class Assets {
   Assets._();
 
-  static const String iconsRupee = 'assets/icons/rupee.svg';
+  static const String fontsBebasNeueRegular =
+      'assets/fonts/BebasNeue-Regular.ttf';
+  static const String fontsBonaNovaSCBold = 'assets/fonts/BonaNovaSC-Bold.ttf';
+  static const String fontsBonaNovaSCRegular =
+      'assets/fonts/BonaNovaSC-Regular.ttf';
+  static const String fontsRobotoCondensedBold =
+      'assets/fonts/Roboto_Condensed-Bold.ttf';
+  static const String fontsRobotoCondensedMedium =
+      'assets/fonts/Roboto_Condensed-Medium.ttf';
+  static const String fontsRobotoSemiCondensedRegular =
+      'assets/fonts/Roboto_SemiCondensed-Regular.ttf';
 }

@@ -185,7 +185,7 @@ class OrderController extends Controller
 
             $table->uid = $request->uid;
             $table->uname = $user->username;
-            $table->ucontact = $user->phone;
+            $table->ucontact = (String) $user->phone;
             $table->pid = $request->pid;
             $table->pname = $product->product_name;
             $table->ppic = $product->product_pic1;

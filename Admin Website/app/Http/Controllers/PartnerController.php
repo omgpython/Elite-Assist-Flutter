@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\order;
 use App\Models\Partner;
 use App\Models\Person;
 use App\Models\SubService;
@@ -153,16 +154,60 @@ class PartnerController extends Controller
     {
         if(isset($request->mobile_no)){
             $data = Partner::where("mobile_no",$request->mobile_no)->first();   
-            $data->partner_pic=asset('partners')."/".$data->partner_pic;
-            return [ 
-                "status" => true,
-                "message" => "success",
-                "partner" => $data ];
+            
+            if(isset($data)) { 
+                $data->partner_pic=asset('partners')."/".$data->partner_pic;
+                return [ 
+                    "status" => true,
+                    "message" => "success",
+                    "partner" => $data 
+                ];
+            } else {
+                return [ 
+                    "status" => false,
+                    "message" => "Partner Not Found",
+                    "partner" => null
+                ];
+            }
+
         }else{
             return [ 
                 "status" => false,
-                "message" => "not login",
-                "partner" => null ];
+                "message" => "Insufficient Perameters!!",
+                "partner" => null 
+            ];
+        }
+    }
+
+    public function getOrders(Request $request) {
+        if(isset($request->id)
+            && isset($request->status)
+        ) {
+            $data = order::where("partner_id",$request->id)
+                ->where("status",(int) $request->status)
+                ->get();
+            if(isset($data)) {
+                foreach($data as $item){
+                    $item->ppic = asset('product') ."/".$item->ppic;
+                }
+                return [
+                    "status"=>true,
+                    "message"=>"getting data...",
+                    "order"=>$data
+                ];
+            } else {
+                return [
+                    "status"=>false,
+                    "message"=>"No Order Found",
+                    "order"=>null
+                ]; 
+            }
+        } else {
+            return [
+                "status"=>false,
+                "message"=>"Insufficient Parameters!!",
+                "order"=>null
+            ];
         }
     }
 }

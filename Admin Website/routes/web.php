@@ -154,3 +154,5 @@ Route::post('/getorder/cancel/user', [PartnerBookingController::class, 'getPartn
 
 Route::post('/checkemail', [PersonController::class, 'checkEmail']);
 Route::post('api/relatedproduct', [ProductController::class, 'getRelatedProduct']);
+Route::post('api/orders', [PartnerController::class, 'getOrders']);
+

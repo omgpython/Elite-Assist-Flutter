@@ -1,16 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:get/get.dart';
 
-import '../generated/assets.dart';
+import '../controller/partner_controller.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final controller = Get.put(PartnerController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Image(height: 32, width: 32, image: Svg(Assets.iconsRupee)),
+      body: Padding(
+        padding: EdgeInsets.all(12.0),
+        child: Column(
+          spacing: 12,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: controller.mobileNoController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Mobile Number',
+              ),
+            ),
+
+            Obx(() {
+              if (controller.isLogin.value) {
+                return Center(child: CircularProgressIndicator.adaptive());
+              } else {
+                return Container(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: controller.loginPartner,
+                    child: Text('Login'),
+                  ),
+                );
+              }
+            }),
+          ],
+        ),
       ),
     );
   }

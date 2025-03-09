@@ -1,41 +1,33 @@
-import 'package:elite_assist/common_ui/custom_appbar.dart';
-import 'package:elite_assist/view/booking_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controller/booking_controller.dart';
+import '../controller/order_controller.dart';
 import '../generated/fonts.dart';
 
-class BookingScreen extends StatelessWidget {
-  BookingScreen({super.key});
+class PendingOrderScreen extends StatelessWidget {
+  PendingOrderScreen({super.key});
 
-  final controller = Get.put(BookingController());
+  final controller = Get.put(OrderController());
 
   @override
   Widget build(BuildContext context) {
-    controller.getOrders();
     var width = MediaQuery.of(context).size.width;
+    controller.getPendingOrders();
     return Scaffold(
-      appBar: CustomAppBar(title: 'Bookings'),
-      body: Obx(
-        () {
-          if (controller.isGetLoading.value) {
+      body: RefreshIndicator(
+        onRefresh: controller.getPendingOrders,
+        child: Obx(() {
+          if (controller.isPendingLoading.value) {
             return Center(child: CircularProgressIndicator.adaptive());
           } else {
             return ListView.builder(
-              itemCount: controller.model!.order.length,
+              itemCount: controller.model0!.order.length,
               itemBuilder: (context, index) {
-                var data = controller.model!.order[index];
+                var data = controller.model0!.order[index];
                 return GestureDetector(
-                  onTap: () {
-                    Get.to(
-                      () => BookingDetailScreen(
-                        data: data,
-                        serviceName: data.pname,
-                      ),
-                    );
-                  },
+                  onTap: () {},
                   child: Card(
+                    elevation: 20,
                     child: Row(
                       spacing: 12,
                       children: [
@@ -77,28 +69,8 @@ class BookingScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Container(
-                              width: width * .3,
-                              decoration: BoxDecoration(
-                                color: data.status == 0
-                                    ? Colors.yellow.shade700
-                                    : Colors.green.shade400,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              padding: EdgeInsets.all(4),
-                              child: Center(
-                                child: Text(
-                                  data.status == 0 ? 'Pending' : 'Completed',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: Fonts.BonaNovaSC,
-                                  ),
-                                ),
-                              ),
-                            ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -106,7 +78,7 @@ class BookingScreen extends StatelessWidget {
               },
             );
           }
-        },
+        }),
       ),
     );
   }

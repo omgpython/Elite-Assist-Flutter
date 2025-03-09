@@ -37,6 +37,7 @@ class VerifyCsrfToken extends Middleware
         '/api/relatedproduct',
         '/api/editaddress',
         '/api/deleteaddress',
-        '/api/findaddress'
+        '/api/findaddress',
+        '/api/orders'
     ];
 }
