@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:elite_assist/common_ui/custom_snackbar.dart';
 import 'package:elite_assist/generated/const_data.dart';
 import 'package:elite_assist/generated/pref_manager.dart';
 import 'package:elite_assist/model/apply_coupon_model.dart';
@@ -83,9 +84,9 @@ class BookingController extends GetxController {
         );
         time.value = formattedTime;
       } else {
-        Get.snackbar(
-          "Invalid Time",
-          "Please select a time between 10 AM and 8 PM",
+        CustomSnackBar(
+          title: "Invalid Time",
+          message: "Please select a time between 10 AM and 8 PM",
         );
       }
     }
@@ -108,9 +109,9 @@ class BookingController extends GetxController {
           couponCode = couponModel!.coupen.coupenCode;
           isCouponApply = true;
           calculateAmount();
-          Get.snackbar(
-            "Coupon Applied",
-            "Your discount has been applied to your order.",
+          CustomSnackBar(
+            title: "Coupon Applied",
+            message: "Your discount has been applied to your order.",
           );
         } else {
           couponController.clear();
@@ -118,9 +119,9 @@ class BookingController extends GetxController {
           couponCode = "No Coupon Apply";
           isCouponApply = false;
           calculateAmount();
-          Get.snackbar(
-            "Invalid Coupon Code",
-            "Please check the code and try again.",
+          CustomSnackBar(
+            title: "Invalid Coupon Code",
+            message: "Please check the code and try again.",
           );
           //log("COUPON", name: response.body);
         }
@@ -137,9 +138,9 @@ class BookingController extends GetxController {
       couponCode = "No Coupon Apply";
       isCouponApply = false;
       calculateAmount();
-      Get.snackbar(
-        "Coupon Removed",
-        "Coupon Code Changed: Previous Code Removed",
+      CustomSnackBar(
+        title: "Coupon Removed",
+        message: "Coupon Code Changed: Previous Code Removed",
       );
     }
   }

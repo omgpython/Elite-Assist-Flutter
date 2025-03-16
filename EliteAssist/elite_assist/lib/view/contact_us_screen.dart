@@ -1,7 +1,7 @@
 import 'package:elite_assist/generated/assets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
+import '../common_ui/custom_appbar.dart';
 import '../generated/fonts.dart';
 
 class ContactUsScreen extends StatelessWidget {
@@ -10,20 +10,7 @@ class ContactUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Contact US',
-          style: TextStyle(
-            fontFamily: Fonts.BebasNeue,
-          ),
-        ),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey,
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Contact Us'),
       body: Column(
         spacing: 12,
         crossAxisAlignment: CrossAxisAlignment.center,

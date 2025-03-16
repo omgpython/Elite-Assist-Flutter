@@ -1,3 +1,4 @@
+import 'package:elite_assist/common_ui/custom_appbar.dart';
 import 'package:elite_assist/controller/person_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,9 +11,7 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Register Screen'),
-      ),
+      appBar: CustomAppBar(title: 'Register'),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(

@@ -1,5 +1,5 @@
+import 'package:elite_assist/common_ui/custom_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../generated/fonts.dart';
 
@@ -9,20 +9,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Privacy Policy',
-          style: TextStyle(
-            fontFamily: Fonts.BebasNeue,
-          ),
-        ),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey,
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Privacy Policy'),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8.0),

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:elite_assist/common_ui/custom_appbar.dart';
 import 'package:elite_assist/common_ui/custom_svg_icon.dart';
 import 'package:elite_assist/common_ui/dashed_line.dart';
 import 'package:elite_assist/controller/product_controller.dart';
@@ -9,47 +10,28 @@ import 'package:elite_assist/generated/fonts.dart';
 import 'package:elite_assist/model/product_model.dart';
 import 'package:elite_assist/view/service_booking_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
-class ProductDetailScreen extends StatefulWidget {
+class ProductDetailScreen extends StatelessWidget {
   Product product;
   String? appBarString;
 
   ProductDetailScreen({super.key, required this.product, this.appBarString});
 
-  @override
-  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
-}
-
-class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final controller = Get.put(ProductController());
 
   final vidController = Get.put(VideoController());
 
   @override
   Widget build(BuildContext context) {
-    vidController.initializePlayer(widget.product.productVid);
+    vidController.initializePlayer(product.productVid);
     controller.getRelatedProduct(
-      cat_id: widget.product.subServiceId,
-      prod_id: widget.product.id,
+      cat_id: product.subServiceId,
+      prod_id: product.id,
     );
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.black,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey,
-        ),
-        centerTitle: true,
-        title: Text(
-          widget.appBarString ?? widget.product.productName,
-          style: TextStyle(
-            fontFamily: Fonts.BebasNeue,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: appBarString ?? product.productName),
       body: SafeArea(
         child: Column(
           children: [
@@ -69,10 +51,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             controller.currentIndex.value = index;
                           },
                         ),
-                        items: [
-                          widget.product.productPic1,
-                          widget.product.productPic2
-                        ].map((img) {
+                        items: [product.productPic1, product.productPic2]
+                            .map((img) {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
@@ -157,7 +137,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.7,
                                   child: Text(
-                                    widget.product.productName,
+                                    product.productName,
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
@@ -173,7 +153,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 CustomSvgIcon(image: Assets.iconsRupee),
                                 SizedBox(width: 5),
                                 Text(
-                                  widget.product.price,
+                                  product.price,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -204,7 +184,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 CustomSvgIcon(image: Assets.iconsTimer),
                                 SizedBox(width: 5),
                                 Text(
-                                  "Less Then ${widget.product.time} Hour",
+                                  "Less Then ${product.time} Hour",
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -277,7 +257,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             DashedLine(),
                             SizedBox(height: 5),
                             Text(
-                              widget.product.details,
+                              product.details,
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
@@ -446,7 +426,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  Get.to(() => ServiceBookingScreen(product: widget.product));
+                  Get.to(() => ServiceBookingScreen(product: product));
                 },
                 style: FilledButton.styleFrom(
                   shape: RoundedRectangleBorder(

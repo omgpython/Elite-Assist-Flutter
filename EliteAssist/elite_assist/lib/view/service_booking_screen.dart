@@ -1,4 +1,5 @@
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
+import 'package:elite_assist/common_ui/custom_appbar.dart';
 import 'package:elite_assist/common_ui/custom_snackbar.dart';
 import 'package:elite_assist/controller/address_controller.dart';
 import 'package:elite_assist/controller/booking_controller.dart';
@@ -7,7 +8,6 @@ import 'package:elite_assist/model/product_model.dart';
 import 'package:elite_assist/view/add_address_screen.dart';
 import 'package:elite_assist/view/coupon_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:swipee/swipee.dart';
@@ -32,20 +32,7 @@ class ServiceBookingScreen extends StatelessWidget {
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.black,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey,
-        ),
-        centerTitle: true,
-        title: Text(
-          '${product.productName} Booking',
-          style: TextStyle(
-            fontFamily: Fonts.BebasNeue,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: '${product.productName} Booking'),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -511,9 +498,10 @@ class ServiceBookingScreen extends StatelessWidget {
                                     .couponController.text.isNotEmpty) {
                                   controller.applyCoupon();
                                 } else {
-                                  Get.snackbar(
-                                    "Coupon Code Empty",
-                                    "Please Add Your Code to Redeem Discount",
+                                  CustomSnackBar(
+                                    title: "Coupon Code Empty",
+                                    message:
+                                        "Please Add Your Code to Redeem Discount",
                                   );
                                 }
                               },
@@ -627,9 +615,9 @@ class ServiceBookingScreen extends StatelessWidget {
                             );
                           } else if (addressController.addressData.value ==
                               '') {
-                            Get.snackbar(
-                              "Address Required",
-                              "Please Select Address",
+                            CustomSnackBar(
+                              title: "Address Required",
+                              message: "Please Select Address",
                             );
                           } else {
                             if (controller.total_amount >= 1) {
@@ -638,9 +626,10 @@ class ServiceBookingScreen extends StatelessWidget {
                                   productId: product.id,
                                   address: addressController.addressData.value,
                                 );
-                                Get.snackbar(
-                                  "Service Booked",
-                                  "Success! Your Appointment is All Set!",
+                                CustomSnackBar(
+                                  title: "Service Booked",
+                                  message:
+                                      "Success! Your Appointment is All Set!",
                                 );
                               } else if (controller.pay_type == "ONLINE") {
                                 openCheckout();
@@ -681,7 +670,10 @@ class ServiceBookingScreen extends StatelessWidget {
       productId: product.id,
       address: addressController.addressData.toString(),
     );
-    Get.snackbar("Payment Successful", "Your Service Booked");
+    CustomSnackBar(
+      title: "Payment Successful",
+      message: "Your Service Booked",
+    );
 
     print("Payment Successful: ${response.paymentId}");
     i = true;

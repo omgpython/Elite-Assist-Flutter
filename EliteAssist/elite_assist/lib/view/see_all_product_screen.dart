@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:elite_assist/model/product_model.dart';
 import 'package:elite_assist/view/product_detail_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../common_ui/custom_appbar.dart';
 import '../generated/fonts.dart';
 
 class SeeAllProductScreen extends StatelessWidget {
@@ -18,18 +18,7 @@ class SeeAllProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey,
-        ),
-        centerTitle: true,
-        title: Text(
-          appBarString,
-          style: TextStyle(fontFamily: Fonts.BebasNeue),
-        ),
-      ),
+      appBar: CustomAppBar(title: appBarString),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12),
         child: GridView.builder(

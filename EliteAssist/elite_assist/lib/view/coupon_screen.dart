@@ -1,10 +1,11 @@
 import 'package:elite_assist/common_ui/coupon_ui.dart';
+import 'package:elite_assist/common_ui/custom_snackbar.dart';
 import 'package:elite_assist/controller/coupon_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../generated/fonts.dart';
+import '../common_ui/custom_appbar.dart';
 
 class CouponScreen extends StatelessWidget {
   CouponScreen({super.key});
@@ -14,20 +15,7 @@ class CouponScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.black,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey,
-        ),
-        centerTitle: true,
-        title: Text(
-          'Offer Zone',
-          style: TextStyle(
-            fontFamily: Fonts.BebasNeue,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Offer Zone'),
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(
@@ -49,7 +37,7 @@ class CouponScreen extends StatelessWidget {
               await Clipboard.setData(
                 ClipboardData(text: controller.model!.coupen[index].coupenCode),
               );
-              Get.snackbar("Copied", "Coupon Code Copied");
+              CustomSnackBar(title: "Copied", message: "Coupon Code Copied");
             },
             child: CouponUI(
               couponCode: controller.model!.coupen[index].coupenCode,

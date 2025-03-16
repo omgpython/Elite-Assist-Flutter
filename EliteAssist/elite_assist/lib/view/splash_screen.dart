@@ -27,7 +27,7 @@ class SplashScreen extends StatelessWidget {
   Future<void> checkIsLogin() async {
     bool value = manager.isLogin();
     Timer(
-      Duration(seconds: 5),
+      Duration(seconds: 4),
       () {
         if (value) {
           Get.offAll(() => BottomNavScreen());

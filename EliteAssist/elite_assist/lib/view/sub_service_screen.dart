@@ -1,9 +1,9 @@
+import 'package:elite_assist/common_ui/custom_appbar.dart';
 import 'package:elite_assist/controller/product_controller.dart';
 import 'package:elite_assist/controller/sub_service_controller.dart';
 import 'package:elite_assist/generated/fonts.dart';
 import 'package:elite_assist/view/product_detail_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class SubServiceScreen extends StatelessWidget {
@@ -19,20 +19,7 @@ class SubServiceScreen extends StatelessWidget {
     subServiceController ??= Get.put(SubServiceController(id: id));
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.black,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey,
-        ),
-        centerTitle: true,
-        title: Text(
-          name,
-          style: TextStyle(
-            fontFamily: Fonts.BebasNeue,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: name),
       body: Obx(
         () {
           if (subServiceController!.isLoading.value) {

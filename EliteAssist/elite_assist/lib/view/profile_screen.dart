@@ -1,3 +1,4 @@
+import 'package:elite_assist/common_ui/custom_appbar.dart';
 import 'package:elite_assist/generated/assets.dart';
 import 'package:elite_assist/generated/fonts.dart';
 import 'package:elite_assist/view/about_us_screen.dart';
@@ -9,7 +10,6 @@ import 'package:elite_assist/view/login_screen.dart';
 import 'package:elite_assist/view/privacy_policy_screen.dart';
 import 'package:elite_assist/view/terms_and_condition_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 
@@ -24,20 +24,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey,
-        ),
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            fontFamily: Fonts.BebasNeue,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Profile'),
       body: Column(
         children: [
           Container(
@@ -237,7 +224,7 @@ class ProfileScreen extends StatelessWidget {
         controller.manager.logoutUser();
         Get.offAll(() => LoginScreen());
       },
-      panaraDialogType: PanaraDialogType.normal,
+      panaraDialogType: PanaraDialogType.warning,
       barrierDismissible: false,
     );
   }

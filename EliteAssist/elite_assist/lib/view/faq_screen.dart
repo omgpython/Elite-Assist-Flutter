@@ -1,8 +1,6 @@
+import 'package:elite_assist/common_ui/custom_appbar.dart';
 import 'package:elite_assist/model/faq_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import '../generated/fonts.dart';
 
 class FaqScreen extends StatelessWidget {
   FaqScreen({super.key});
@@ -13,20 +11,7 @@ class FaqScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     addFaqs();
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-        systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.grey,
-        ),
-        title: Text(
-          'Frequently Asked Questions',
-          style: TextStyle(
-            fontFamily: Fonts.BebasNeue,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Frequently Asked Questions'),
       body: Padding(
         padding: EdgeInsets.all(8),
         child: ListView.builder(

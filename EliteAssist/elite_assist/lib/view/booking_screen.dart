@@ -17,78 +17,50 @@ class BookingScreen extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: CustomAppBar(title: 'Bookings'),
-      body: Obx(
-        () {
-          if (controller.isGetLoading.value) {
-            return Center(child: CircularProgressIndicator.adaptive());
-          } else {
-            return ListView.builder(
-              itemCount: controller.model!.order.length,
-              itemBuilder: (context, index) {
-                var data = controller.model!.order[index];
-                return GestureDetector(
-                  onTap: () {
-                    Get.to(
-                      () => BookingDetailScreen(
-                        data: data,
-                        serviceName: data.pname,
-                      ),
-                    );
-                  },
-                  child: Card(
-                    child: Row(
-                      spacing: 12,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                          ),
-                          child: Image.network(
-                            width: width * .35,
-                            height: width * .35,
-                            data.ppic,
-                            fit: BoxFit.fill,
-                          ),
+      body: RefreshIndicator(
+        onRefresh: controller.getOrders,
+        child: Obx(
+          () {
+            if (controller.isGetLoading.value) {
+              return Center(child: CircularProgressIndicator.adaptive());
+            } else {
+              return ListView.builder(
+                itemCount: controller.model!.order.length,
+                itemBuilder: (context, index) {
+                  var data = controller.model!.order[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        () => BookingDetailScreen(
+                          data: data,
+                          serviceName: data.pname,
                         ),
-                        Column(
-                          spacing: 8,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: width * .5,
-                              child: Text(
-                                data.pname,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: Fonts.BonaNovaSC,
-                                ),
-                              ),
+                      );
+                    },
+                    child: Card(
+                      child: Row(
+                        spacing: 12,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
                             ),
-                            Container(
-                              width: width * .5,
-                              child: Text(
-                                '${data.date} | ${data.time}',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: Fonts.BonaNovaSC,
-                                ),
-                              ),
+                            child: Image.network(
+                              width: width * .35,
+                              height: width * .35,
+                              data.ppic,
+                              fit: BoxFit.fill,
                             ),
-                            Container(
-                              width: width * .3,
-                              decoration: BoxDecoration(
-                                color: data.status == 0
-                                    ? Colors.yellow.shade700
-                                    : Colors.green.shade400,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              padding: EdgeInsets.all(4),
-                              child: Center(
+                          ),
+                          Column(
+                            spacing: 8,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: width * .5,
                                 child: Text(
-                                  data.status == 0 ? 'Pending' : 'Completed',
+                                  data.pname,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
@@ -96,17 +68,48 @@ class BookingScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )
-                      ],
+                              Container(
+                                width: width * .5,
+                                child: Text(
+                                  '${data.date} | ${data.time}',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: Fonts.BonaNovaSC,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: width * .3,
+                                decoration: BoxDecoration(
+                                  color: data.status == 0
+                                      ? Colors.yellow.shade700
+                                      : Colors.green.shade400,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                padding: EdgeInsets.all(4),
+                                child: Center(
+                                  child: Text(
+                                    data.status == 0 ? 'Pending' : 'Completed',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: Fonts.BonaNovaSC,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
-            );
-          }
-        },
+                  );
+                },
+              );
+            }
+          },
+        ),
       ),
     );
   }
