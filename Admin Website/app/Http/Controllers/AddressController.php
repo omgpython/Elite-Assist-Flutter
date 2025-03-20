@@ -17,17 +17,15 @@ class AddressController extends Controller
     public function  getAddress(Request $request) {
         if(isset($request->uid)) {
             $data=Address::where('uid',$request->uid)->get();
-            if(isset($data)){
-                return ['status'=>true,'msg'=>'getting...','address'=>$data];
-
+            if($data->isEmpty()){
+                return ['status'=>false,'msg'=>'not getting...','address'=>null];
             }else{
-                return ['status'=>false,'msg'=>'not getting...','address'=>$data];
+                return ['status'=>true,'msg'=>'getting...','address'=>$data];
             }    
         } else {
             return ['status'=>false,'msg'=>'not getting...','address'=>null];
 
-        }
-        
+        }    
     }
 
     public function addAddress(Request $request){

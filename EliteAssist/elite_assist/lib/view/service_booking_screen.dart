@@ -1,3 +1,4 @@
+import 'package:action_slider/action_slider.dart';
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:elite_assist/common_ui/custom_appbar.dart';
 import 'package:elite_assist/common_ui/custom_snackbar.dart';
@@ -10,19 +11,19 @@ import 'package:elite_assist/view/coupon_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:swipee/swipee.dart';
 
 import '../common_ui/dashed_line.dart';
 
 class ServiceBookingScreen extends StatelessWidget {
   Product product;
   bool i = false;
+  bool j = false;
 
   final Razorpay _razorpay = Razorpay();
 
   ServiceBookingScreen({super.key, required this.product});
 
-  final controller = Get.put(BookingController());
+  final bookingController = Get.put(BookingController());
   final addressController = Get.put(AddressController());
 
   @override
@@ -88,7 +89,7 @@ class ServiceBookingScreen extends StatelessWidget {
                                   SizedBox(width: 5),
                                   Obx(
                                     () => Text(
-                                      controller.amount.value.toString(),
+                                      bookingController.amount.value.toString(),
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -156,7 +157,7 @@ class ServiceBookingScreen extends StatelessWidget {
                           Expanded(
                             child: FilledButton(
                               onPressed: () {
-                                controller.selectDate(context);
+                                bookingController.selectDate(context);
                               },
                               style: FilledButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -164,13 +165,14 @@ class ServiceBookingScreen extends StatelessWidget {
                                 ),
                                 backgroundColor: Colors.black,
                               ),
-                              child: Obx(() => Text(controller.date.value)),
+                              child:
+                                  Obx(() => Text(bookingController.date.value)),
                             ),
                           ),
                           Expanded(
                             child: FilledButton(
                               onPressed: () {
-                                controller.selectTime(context);
+                                bookingController.selectTime(context);
                               },
                               style: FilledButton.styleFrom(
                                 shape: RoundedRectangleBorder(
@@ -178,7 +180,8 @@ class ServiceBookingScreen extends StatelessWidget {
                                 ),
                                 backgroundColor: Colors.black,
                               ),
-                              child: Obx(() => Text(controller.time.value)),
+                              child:
+                                  Obx(() => Text(bookingController.time.value)),
                             ),
                           )
                         ],
@@ -313,7 +316,7 @@ class ServiceBookingScreen extends StatelessWidget {
                             children: [
                               Obx(
                                 () => Text(
-                                  controller.amount.value.toString(),
+                                  bookingController.amount.value.toString(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontFamily: Fonts.BonaNovaSC,
@@ -343,7 +346,7 @@ class ServiceBookingScreen extends StatelessWidget {
                             children: [
                               Obx(
                                 () => Text(
-                                  "- ${controller.discount.value.toString()}",
+                                  "- ${bookingController.discount.value.toString()}",
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontFamily: Fonts.BonaNovaSC,
@@ -373,7 +376,7 @@ class ServiceBookingScreen extends StatelessWidget {
                             children: [
                               Obx(
                                 () => Text(
-                                  controller.gst.value.toString(),
+                                  bookingController.gst.value.toString(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontFamily: Fonts.BonaNovaSC,
@@ -403,7 +406,7 @@ class ServiceBookingScreen extends StatelessWidget {
                             children: [
                               Obx(
                                 () => Text(
-                                  controller.fees.value.toString(),
+                                  bookingController.fees.value.toString(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontFamily: Fonts.BonaNovaSC,
@@ -435,7 +438,8 @@ class ServiceBookingScreen extends StatelessWidget {
                             children: [
                               Obx(
                                 () => Text(
-                                  controller.total_amount.value.toString(),
+                                  bookingController.total_amount.value
+                                      .toString(),
                                   style: TextStyle(
                                     fontSize: 23,
                                     fontFamily: Fonts.BonaNovaSC,
@@ -475,12 +479,13 @@ class ServiceBookingScreen extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: TextField(
-                              controller: controller.couponController,
+                              controller: bookingController.couponController,
                               textCapitalization: TextCapitalization.characters,
-                              onChanged: (value) => controller.clearCoupon(),
-                              focusNode: controller.focusNode,
+                              onChanged: (value) =>
+                                  bookingController.clearCoupon(),
+                              focusNode: bookingController.focusNode,
                               onTapOutside: (event) {
-                                controller.focusNode.unfocus();
+                                bookingController.focusNode.unfocus();
                               },
                               decoration: InputDecoration(
                                 labelText: 'Apply Coupon Code',
@@ -493,10 +498,10 @@ class ServiceBookingScreen extends StatelessWidget {
                             flex: 1,
                             child: FilledButton(
                               onPressed: () {
-                                controller.focusNode.unfocus();
-                                if (controller
+                                bookingController.focusNode.unfocus();
+                                if (bookingController
                                     .couponController.text.isNotEmpty) {
-                                  controller.applyCoupon();
+                                  bookingController.applyCoupon();
                                 } else {
                                   CustomSnackBar(
                                     title: "Coupon Code Empty",
@@ -569,7 +574,7 @@ class ServiceBookingScreen extends StatelessWidget {
                         buttonLables: ['COD', 'ONLINE'],
                         buttonValues: ['COD', 'ONLINE'],
                         radioButtonValue: (value) {
-                          controller.pay_type = value;
+                          bookingController.pay_type = value;
                         },
                         enableShape: true,
                       ),
@@ -579,50 +584,67 @@ class ServiceBookingScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 Obx(
                   () {
-                    if (controller.isAddLoading.value) {
-                      return Center(
-                        child: CircularProgressIndicator.adaptive(),
+                    if (bookingController.isAddLoading.value) {
+                      return ActionSlider.standard(
+                        sliderBehavior: SliderBehavior.stretch,
+                        width: screenWidth,
+                        backgroundColor: Colors.white,
+                        toggleColor: Colors.black,
+                        action: (controller) async {
+                          controller.loading();
+                        },
+                        child: const Text('Slide to confirm'),
                       );
                     } else {
-                      return Swipee(
+                      return ActionSlider.standard(
+                        sliderBehavior: SliderBehavior.stretch,
                         width: screenWidth,
-                        buttonWidth: screenWidth * .3,
-                        trackWidth: screenWidth,
-                        trackChild: Padding(
-                          padding: EdgeInsets.only(left: 25.0),
-                          child: Text(
-                            'Swipe To Confirm Booking',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: Fonts.Roboto,
-                            ),
-                          ),
+                        backgroundColor: Colors.grey.shade100,
+                        toggleColor: Colors.black,
+                        successIcon: Icon(
+                          Icons.check_rounded,
+                          color: Colors.white,
                         ),
-                        child: Icon(
+                        loadingIcon: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                        icon: Icon(
                           Icons.arrow_forward_ios,
                           color: Colors.white,
                         ),
-                        onSwipe: () {
-                          if (controller.date.value == "Select Date") {
+                        action: (controller) async {
+                          controller.loading();
+                          if (bookingController.date.value == "Select Date") {
+                            controller.reset();
                             CustomSnackBar(
                               title: "Date Required",
                               message: "Please Select Date",
                             );
-                          } else if (controller.time.value == "Select Time") {
+                          } else if (bookingController.time.value ==
+                              "Select Time") {
+                            controller.reset();
                             CustomSnackBar(
                               title: "Time Required",
                               message: "Please Select Time",
                             );
                           } else if (addressController.addressData.value ==
                               '') {
+                            controller.reset();
                             CustomSnackBar(
                               title: "Address Required",
                               message: "Please Select Address",
                             );
                           } else {
-                            if (controller.total_amount >= 1) {
-                              if (controller.pay_type == "COD") {
-                                controller.addOrder(
+                            if (bookingController.total_amount >= 1) {
+                              if (bookingController.pay_type == "COD") {
+                                await Future.delayed(
+                                  Duration(seconds: 2),
+                                );
+                                controller.success();
+                                await Future.delayed(
+                                  Duration(seconds: 1),
+                                );
+                                bookingController.addOrder(
                                   productId: product.id,
                                   address: addressController.addressData.value,
                                 );
@@ -631,18 +653,45 @@ class ServiceBookingScreen extends StatelessWidget {
                                   message:
                                       "Success! Your Appointment is All Set!",
                                 );
-                              } else if (controller.pay_type == "ONLINE") {
+                              } else if (bookingController.pay_type ==
+                                  "ONLINE") {
+                                await Future.delayed(
+                                  const Duration(seconds: 2),
+                                );
+                                controller.success();
+                                await Future.delayed(
+                                  Duration(seconds: 1),
+                                );
                                 openCheckout();
                               }
                             } else {
-                              controller.pay_type = "ONLINE";
-                              controller.addOrder(
+                              bookingController.pay_type = "ONLINE";
+                              await Future.delayed(
+                                const Duration(seconds: 2),
+                              );
+                              controller.success();
+                              await Future.delayed(
+                                Duration(seconds: 1),
+                              );
+                              bookingController.addOrder(
                                 productId: product.id,
                                 address: addressController.addressData.value,
                               );
                             }
+
+                            controller.success();
+                            await Future.delayed(const Duration(seconds: 1));
+                            controller.reset();
                           }
                         },
+                        child: Text(
+                          'Slide To Confirm',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: Fonts.BonaNovaSC,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       );
                     }
                   },
@@ -656,8 +705,8 @@ class ServiceBookingScreen extends StatelessWidget {
   }
 
   Future<void> init() async {
-    controller.amount.value = int.parse(product.price);
-    controller.calculateAmount();
+    bookingController.amount.value = int.parse(product.price);
+    bookingController.calculateAmount();
     addressController.getAddress();
   }
 
@@ -666,7 +715,7 @@ class ServiceBookingScreen extends StatelessWidget {
       return;
     }
     _razorpay.clear();
-    controller.addOrder(
+    bookingController.addOrder(
       productId: product.id,
       address: addressController.addressData.toString(),
     );
@@ -681,17 +730,23 @@ class ServiceBookingScreen extends StatelessWidget {
 
 // Error callback
   void _handlePaymentError(PaymentFailureResponse response) {
-    print("Payment Failed: ${response.message}");
-    CustomSnackBar(
-      title: "Payment Failed",
-      message: "Please retry payment",
-    );
+    if (!j) {
+      j = true;
+      print("Payment Failed: ${response.message}");
+      CustomSnackBar(
+        title: "Payment Failed",
+        message: "Please retry payment",
+      );
+      Future.delayed(Duration(seconds: 5), () {
+        j = false;
+      });
+    }
   }
 
   void openCheckout() {
     var options = {
       'key': 'rzp_test_9OxKzClSORPlr4',
-      'amount': controller.total_amount * 100,
+      'amount': bookingController.total_amount * 100,
       'name': 'Elite Assist',
       'prefill': {
         'contact': '9999999999',
