@@ -159,12 +159,15 @@ class SubServiceScreen extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          product.productName,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: Fonts.BonaNovaSC,
+                                        Container(
+                                          width: width * .4,
+                                          child: Text(
+                                            product.productName,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: Fonts.BonaNovaSC,
+                                            ),
                                           ),
                                         ),
                                         Row(

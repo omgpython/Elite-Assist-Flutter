@@ -146,6 +146,16 @@ class PersonController extends GetxController {
     return userName.value;
   }
 
+  RxBool obscurePassword = true.obs, obscureCpassword = true.obs;
+
+  void visiblePassword() {
+    obscurePassword.value = !obscurePassword.value;
+  }
+
+  void visibleCpassword() {
+    obscureCpassword.value = !obscureCpassword.value;
+  }
+
   void clear() {
     nameController.clear();
     emailController.clear();

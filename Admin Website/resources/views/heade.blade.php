@@ -165,7 +165,7 @@
                     <li>
                         <a href="javascript:void(0);">
                             <span class="icon-menu feather-icon">
-                                <i class="bi bi-layers" style="font-size: 18px"></i>
+                                <i class="fa-solid fa-gift" style="font-size: 18px"></i>
                             </span>
                             <span class="menu-text">
                                 orders

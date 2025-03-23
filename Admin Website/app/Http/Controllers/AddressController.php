@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
-    //
-
     public function getUserAddress() {
         $data = Address::paginate(5);
         return view('user.address',compact('data'));
@@ -25,7 +23,7 @@ class AddressController extends Controller
         } else {
             return ['status'=>false,'msg'=>'not getting...','address'=>null];
 
-        }    
+        }
     }
 
     public function addAddress(Request $request){
