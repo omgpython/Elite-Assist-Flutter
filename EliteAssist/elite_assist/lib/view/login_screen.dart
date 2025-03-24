@@ -14,6 +14,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -49,10 +50,10 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 34, vertical: 34),
+                    padding: EdgeInsets.symmetric(horizontal: 34, vertical: 84),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade900,
                       borderRadius: BorderRadius.only(
@@ -63,14 +64,6 @@ class LoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'LOGIN',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                         Expanded(
                           child: Container(
                             width: double.infinity,
@@ -78,19 +71,18 @@ class LoginScreen extends StatelessWidget {
                             child: Form(
                               key: _key,
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   TextFormField(
                                     controller: controller.emailController,
-                                    keyboardType: TextInputType.emailAddress,
                                     style: TextStyle(color: Colors.white),
+                                    keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                      ),
+                                      labelText: 'E-Mail Address',
+                                      labelStyle:
+                                          TextStyle(color: Colors.white),
                                       prefixIcon: Icon(Icons.email),
-                                      hintText: 'Email',
-                                      hintStyle: TextStyle(color: Colors.grey),
+                                      border: OutlineInputBorder(),
                                     ),
                                     validator: (email) {
                                       if (email == null ||
@@ -111,19 +103,17 @@ class LoginScreen extends StatelessWidget {
                                           controller.obscurePassword.value,
                                       style: TextStyle(color: Colors.white),
                                       decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                        hintText: 'Password',
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey),
+                                        labelText: 'Password',
+                                        labelStyle:
+                                            TextStyle(color: Colors.white),
+                                        prefixIcon: Icon(Icons.password),
                                         suffixIcon: IconButton(
                                           onPressed: controller.visiblePassword,
                                           icon: controller.obscurePassword.value
                                               ? Icon(Icons.visibility_off)
                                               : Icon(Icons.visibility),
                                         ),
+                                        border: OutlineInputBorder(),
                                       ),
                                       validator: (password) {
                                         if (password == null ||
@@ -138,6 +128,24 @@ class LoginScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: 16),
+                                  Obx(
+                                    () => controller.isUserLogin.value
+                                        ? CircularProgressIndicator.adaptive()
+                                        : Container(
+                                            width: double.infinity,
+                                            child: FilledButton(
+                                              onPressed: () {
+                                                if (_key.currentState!
+                                                    .validate()) {
+                                                  _key.currentState!.save();
+                                                  //controller.registerUser();
+                                                }
+                                              },
+                                              child: Text('Register'),
+                                            ),
+                                          ),
+                                  ),
+                                  SizedBox(height: 16),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -149,9 +157,9 @@ class LoginScreen extends StatelessWidget {
                                           fontSize: 18,
                                         ),
                                       ),
-                                      FilledButton(
+                                      TextButton(
                                         onPressed: () {},
-                                        child: Text('Sign In'),
+                                        child: Text('Forgot Password'),
                                       )
                                     ],
                                   ),

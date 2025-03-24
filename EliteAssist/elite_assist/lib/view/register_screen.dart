@@ -201,17 +201,6 @@ class RegisterScreen extends StatelessWidget {
                                           if (_key.currentState!.validate()) {
                                             _key.currentState!.save();
                                             controller.registerUser();
-                                            print("Name: " +
-                                                controller.nameController.text);
-                                            print("Email: " +
-                                                controller
-                                                    .emailController.text);
-                                            print("Contact: " +
-                                                controller
-                                                    .contactController.text);
-                                            print("Password: " +
-                                                controller
-                                                    .passwordController.text);
                                           }
                                         },
                                         child: Text('Register'),
