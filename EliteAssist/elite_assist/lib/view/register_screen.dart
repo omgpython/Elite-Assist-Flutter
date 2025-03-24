@@ -18,10 +18,7 @@ class RegisterScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
+            height: MediaQuery.of(context).size.height,
             child: Column(
               children: [
                 Expanded(
@@ -72,6 +69,7 @@ class RegisterScreen extends StatelessWidget {
                           children: [
                             SizedBox(height: 40),
                             TextFormField(
+                              controller: controller.nameController,
                               style: TextStyle(color: Colors.white),
                               textCapitalization: TextCapitalization.words,
                               keyboardType: TextInputType.name,
@@ -82,9 +80,7 @@ class RegisterScreen extends StatelessWidget {
                                 border: OutlineInputBorder(),
                               ),
                               validator: (name) {
-                                if (name == null || name
-                                    .trim()
-                                    .isEmpty) {
+                                if (name == null || name.trim().isEmpty) {
                                   return 'Fill Name';
                                 } else if (!Validations.isValidName(name)) {
                                   return 'Only Alphabets Allowed';
@@ -94,6 +90,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 16),
                             TextFormField(
+                              controller: controller.emailController,
                               style: TextStyle(color: Colors.white),
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
@@ -103,9 +100,7 @@ class RegisterScreen extends StatelessWidget {
                                 border: OutlineInputBorder(),
                               ),
                               validator: (email) {
-                                if (email == null || email
-                                    .trim()
-                                    .isEmpty) {
+                                if (email == null || email.trim().isEmpty) {
                                   return 'Fill Email Address';
                                 } else if (!Validations.isValidEmail(email)) {
                                   return 'Enter Valid Email Address';
@@ -115,6 +110,7 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 16),
                             TextFormField(
+                              controller: controller.contactController,
                               style: TextStyle(color: Colors.white),
                               keyboardType: TextInputType.phone,
                               maxLength: 10,
@@ -125,9 +121,7 @@ class RegisterScreen extends StatelessWidget {
                                 border: OutlineInputBorder(),
                               ),
                               validator: (contact) {
-                                if (contact == null || contact
-                                    .trim()
-                                    .isEmpty) {
+                                if (contact == null || contact.trim().isEmpty) {
                                   return 'Fill Contact Number';
                                 } else if (!Validations.isValidContact(
                                     contact)) {
@@ -138,91 +132,91 @@ class RegisterScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 16),
                             Obx(
-                                  () =>
-                                  TextFormField(
-                                    controller: controller.passwordController,
-                                    obscureText: controller.obscurePassword
-                                        .value,
-                                    style: TextStyle(color: Colors.white),
-                                    decoration: InputDecoration(
-                                      labelText: 'Password',
-                                      labelStyle: TextStyle(
-                                          color: Colors.white),
-                                      prefixIcon: Icon(Icons.password),
-                                      suffixIcon: IconButton(
-                                        onPressed: controller.visiblePassword,
-                                        icon: controller.obscurePassword.value
-                                            ? Icon(Icons.visibility_off)
-                                            : Icon(Icons.visibility),
-                                      ),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    validator: (password) {
-                                      if (password == null ||
-                                          password
-                                              .trim()
-                                              .isEmpty) {
-                                        return 'Fill Password';
-                                      } else if (!Validations.isValidPassword(
-                                          password)) {
-                                        return 'Enter Valid Password';
-                                      }
-                                      return null;
-                                    },
+                              () => TextFormField(
+                                controller: controller.passwordController,
+                                obscureText: controller.obscurePassword.value,
+                                style: TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  prefixIcon: Icon(Icons.password),
+                                  suffixIcon: IconButton(
+                                    onPressed: controller.visiblePassword,
+                                    icon: controller.obscurePassword.value
+                                        ? Icon(Icons.visibility_off)
+                                        : Icon(Icons.visibility),
                                   ),
+                                  border: OutlineInputBorder(),
+                                ),
+                                validator: (password) {
+                                  if (password == null ||
+                                      password.trim().isEmpty) {
+                                    return 'Fill Password';
+                                  } else if (!Validations.isValidPassword(
+                                      password)) {
+                                    return 'Enter Valid Password';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
                             SizedBox(height: 16),
                             Obx(
-                                  () =>
-                                  TextFormField(
-                                    obscureText: controller.obscureCpassword
-                                        .value,
-                                    style: TextStyle(color: Colors.white),
-                                    decoration: InputDecoration(
-                                      labelText: 'Confirm Password',
-                                      labelStyle: TextStyle(
-                                          color: Colors.white),
-                                      prefixIcon: Icon(Icons.password),
-                                      suffixIcon: IconButton(
-                                        onPressed: controller.visibleCpassword,
-                                        icon: controller.obscureCpassword.value
-                                            ? Icon(Icons.visibility_off)
-                                            : Icon(Icons.visibility),
-                                      ),
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    validator: (cPassword) {
-                                      String password =
+                              () => TextFormField(
+                                obscureText: controller.obscureCpassword.value,
+                                style: TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  labelText: 'Confirm Password',
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  prefixIcon: Icon(Icons.password),
+                                  suffixIcon: IconButton(
+                                    onPressed: controller.visibleCpassword,
+                                    icon: controller.obscureCpassword.value
+                                        ? Icon(Icons.visibility_off)
+                                        : Icon(Icons.visibility),
+                                  ),
+                                  border: OutlineInputBorder(),
+                                ),
+                                validator: (cPassword) {
+                                  String password =
                                       controller.passwordController.text.trim();
-                                      if (cPassword == null ||
-                                          cPassword
-                                              .trim()
-                                              .isEmpty) {
-                                        return 'Fill Confirm Password';
-                                      } else if (cPassword != password) {
-                                        return 'Password Not Match';
-                                      }
-                                      return null;
-                                    },
-                                  ),
+                                  if (cPassword == null ||
+                                      cPassword.trim().isEmpty) {
+                                    return 'Fill Confirm Password';
+                                  } else if (cPassword != password) {
+                                    return 'Password Not Match';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
                             SizedBox(height: 16),
                             Obx(
-                                  () =>
-                              controller.isUserReg.value
+                              () => controller.isUserReg.value
                                   ? CircularProgressIndicator.adaptive()
                                   : Container(
-                                width: double.infinity,
-                                child: FilledButton(
-                                  onPressed: () {
-                                    if (_key.currentState!.validate()) {
-                                      _key.currentState!.save();
-                                      controller.registerUser();
-                                    }
-                                  },
-                                  child: Text('Register'),
-                                ),
-                              ),
+                                      width: double.infinity,
+                                      child: FilledButton(
+                                        onPressed: () {
+                                          if (_key.currentState!.validate()) {
+                                            _key.currentState!.save();
+                                            controller.registerUser();
+                                            print("Name: " +
+                                                controller.nameController.text);
+                                            print("Email: " +
+                                                controller
+                                                    .emailController.text);
+                                            print("Contact: " +
+                                                controller
+                                                    .contactController.text);
+                                            print("Password: " +
+                                                controller
+                                                    .passwordController.text);
+                                          }
+                                        },
+                                        child: Text('Register'),
+                                      ),
+                                    ),
                             ),
                             SizedBox(height: 16),
                             Row(
