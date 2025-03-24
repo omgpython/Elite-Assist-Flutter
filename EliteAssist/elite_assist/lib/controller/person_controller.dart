@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 import '../view/bottom_nav_screen.dart';
 
 class PersonController extends GetxController {
+  RxBool obscurePassword = true.obs, obscureCpassword = true.obs;
   PersonModel? model;
   PrefManager manager = PrefManager();
 
@@ -48,6 +49,8 @@ class PersonController extends GetxController {
             message: "Your account has created",
           );
           clear();
+          obscurePassword.value = false;
+          obscureCpassword.value = false;
           Get.offAll(() => LoginScreen());
         } else {
           isUserReg.value = false;
@@ -140,8 +143,6 @@ class PersonController extends GetxController {
     userName.value = manager.getUserName();
     return userName.value;
   }
-
-  RxBool obscurePassword = true.obs, obscureCpassword = true.obs;
 
   void visiblePassword() {
     obscurePassword.value = !obscurePassword.value;

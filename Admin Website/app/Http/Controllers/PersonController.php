@@ -45,7 +45,7 @@ public function checkEmail(Request $request){
                 return [
                     "status"=>false,
                     "message"=>"User Already Exists",
-                    "person"=>null
+                    "person"=>$data
                 ];
             } else {
                 $table=new Person();
