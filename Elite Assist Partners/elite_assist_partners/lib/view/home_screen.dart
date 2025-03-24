@@ -1,6 +1,7 @@
 import 'package:elite_assist_partners/generated/const_data.dart';
 import 'package:elite_assist_partners/generated/pref_manager.dart';
 import 'package:elite_assist_partners/view/pending_order_screen.dart';
+import 'package:elite_assist_partners/view/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class HomeScreen extends StatelessWidget {
               padding: EdgeInsets.only(right: 8.0),
               child: GestureDetector(
                 onTap: () {
-                  Get.snackbar("title", "message");
+                  Get.to(() => ProfileScreen());
                 },
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(

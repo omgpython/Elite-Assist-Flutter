@@ -41,6 +41,14 @@ class PrefManager {
     await pref!.clear();
   }
 
+  String getName() {
+    return pref!.getString(ConstantData.KEY_NAME_SP) ?? "";
+  }
+
+  String getContact() {
+    return pref!.getString(ConstantData.KEY_CONTACT_SP) ?? "";
+  }
+
   String getPic() {
     return pref!.getString(ConstantData.KEY_PIC_SP) ?? "";
   }

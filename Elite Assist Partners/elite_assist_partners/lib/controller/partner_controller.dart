@@ -11,7 +11,7 @@ import '../generated/pref_manager.dart';
 import '../view/home_screen.dart';
 
 class PartnerController extends GetxController {
-  final mobileNoController = TextEditingController(text: "1234567890");
+  final mobileNoController = TextEditingController();
 
   PartnerModel? model;
   PrefManager manager = PrefManager();

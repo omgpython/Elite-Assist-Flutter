@@ -678,7 +678,6 @@ class ServiceBookingScreen extends StatelessWidget {
                                 address: addressController.addressData.value,
                               );
                             }
-
                             controller.success();
                             await Future.delayed(const Duration(seconds: 1));
                             controller.reset();
