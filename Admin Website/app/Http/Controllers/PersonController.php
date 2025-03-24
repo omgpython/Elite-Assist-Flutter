@@ -35,23 +35,33 @@ public function checkEmail(Request $request){
 
    public function register_user(Request $request) {
     if(isset($request->username) && 
-           isset($request->password) &&
+        isset($request->password) &&
         isset($request->email) &&
         isset($request->phone)){
 
-            $table=new Person();
-            $table->username=$request->username;
-            $table->email=$request->email;
-            $table->password=md5($request->password);
-            $table->phone=$request->phone;
+            $data = Person::where("email",$request->email)->first();
 
-            $data=$table->save();
+            if(isset($data)) {
+                return [
+                    "status"=>false,
+                    "message"=>"User Already Exists",
+                    "person"=>null
+                ];
+            } else {
+                $table=new Person();
+                $table->username=$request->username;
+                $table->email=$request->email;
+                $table->password=md5($request->password);
+                $table->phone=$request->phone;
 
-            return [
-                "status"=>true,
-                "message"=>"Registered Successfully!!",
-                "person"=>$table
-            ];
+                $table->save();
+
+                return [
+                    "status"=>true,
+                    "message"=>"Registered Successfully!!",
+                    "person"=>$table
+                ];
+            }
             
         }else{
             return [

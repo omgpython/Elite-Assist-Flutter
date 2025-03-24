@@ -6,7 +6,6 @@ import 'package:elite_assist/common_ui/custom_snackbar.dart';
 import 'package:elite_assist/generated/const_data.dart';
 import 'package:elite_assist/generated/pref_manager.dart';
 import 'package:elite_assist/model/person_model.dart';
-import 'package:elite_assist/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -26,35 +25,26 @@ class PersonController extends GetxController {
 
   Future<void> registerUser() async {
     try {
-      isUserReg.value = true;
-      final url = Uri.parse(ConstantData.CHECK_USER_API);
+      final url = Uri.parse(ConstantData.REGISTER_USER_API);
+
       var response = await http.post(
         url,
-        body: {"email": emailController.text.trim()},
+        body: {
+          "username": nameController.text.trim(),
+          "password": passwordController.text.trim(),
+          "email": emailController.text.trim(),
+          "phone": contactController.text.trim(),
+        },
       );
 
-      if (response.statusCode == 200 &&
-          jsonDecode(response.body)["person"].toString() == "false") {
-        final url1 = Uri.parse(ConstantData.REGISTER_USER_API);
-        var response1 = await http.post(
-          url1,
-          body: {
-            "username": nameController.text.trim(),
-            "password": passwordController.text.trim(),
-            "email": emailController.text.trim(),
-            "phone": contactController.text.trim(),
-          },
+      if (response.statusCode == 200) {
+        isUserReg.value = false;
+        CustomSnackBar(
+          title: "Register Successfully",
+          message: "Your account has created",
         );
-        if (response1.statusCode == 200) {
-          isUserReg.value = false;
-          //log(response1.body, name: "REG DATA");
-          CustomSnackBar(
-            title: "Register Successfully",
-            message: "Your account has created",
-          );
-          clear();
-          Get.offAll(() => LoginScreen());
-        }
+        clear();
+        Get.offAll(() => BottomNavScreen());
       } else {
         isUserReg.value = false;
         CustomSnackBar(
@@ -67,6 +57,48 @@ class PersonController extends GetxController {
       log(e.toString(), name: "REGISTER ERROR");
     }
   }
+
+  // try {
+  // isUserReg.value = true;
+  // final url = Uri.parse(ConstantData.CHECK_USER_API);
+  // var response = await http.post(
+  // url,
+  // body: {"email": emailController.text.trim()},
+  // );
+
+  // if (response.statusCode == 200 &&
+  // jsonDecode(response.body)["person"].toString() == "false") {
+  // final url1 = Uri.parse(ConstantData.REGISTER_USER_API);
+  // var response1 = await http.post(
+  // url1,
+  // body: {
+  // "username": nameController.text.trim(),
+  // "password": passwordController.text.trim(),
+  // "email": emailController.text.trim(),
+  // "phone": contactController.text.trim(),
+  // },
+  // );
+  // if (response1.statusCode == 200) {
+  // isUserReg.value = false;
+  // //log(response1.body, name: "REG DATA");
+  // CustomSnackBar(
+  // title: "Register Successfully",
+  // message: "Your account has created",
+  // );
+  // clear();
+  // Get.offAll(() => LoginScreen());
+  // }
+  // } else {
+  // isUserReg.value = false;
+  // CustomSnackBar(
+  // title: "Email Already Registered",
+  // message: "You must be login instead of register",
+  // );
+  // }
+  // } catch (e) {
+  // isUserReg.value = false;
+  // log(e.toString(), name: "REGISTER ERROR");
+  // }
 
   RxBool isUserLogin = false.obs;
 
