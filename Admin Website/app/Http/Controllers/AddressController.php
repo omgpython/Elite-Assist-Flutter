@@ -12,13 +12,28 @@ class AddressController extends Controller
         return view('user.address',compact('data'));
     }
 
+    // public function  getAddress(Request $request) {
+    //     if(isset($request->uid)) {
+    //         $data=Address::where('uid',$request->uid)->get();
+    //         if(isset($data)){
+    //             return ['status'=>false,'msg'=>'not getting...','address'=>[]];
+    //         }else{
+    //             return ['status'=>true,'msg'=>'getting...','address'=>$data];
+    //         }    
+    //     } else {
+    //         return ['status'=>false,'msg'=>'not getting...','address'=>null];
+
+    //     }
+    // }
+
     public function  getAddress(Request $request) {
         if(isset($request->uid)) {
             $data=Address::where('uid',$request->uid)->get();
-            if($data->isEmpty()){
-                return ['status'=>false,'msg'=>'not getting...','address'=>null];
-            }else{
+            if(isset($data)){
                 return ['status'=>true,'msg'=>'getting...','address'=>$data];
+
+            }else{
+                return ['status'=>false,'msg'=>'not getting...','address'=>$data];
             }    
         } else {
             return ['status'=>false,'msg'=>'not getting...','address'=>null];

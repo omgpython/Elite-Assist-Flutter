@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../controller/order_controller.dart';
 import '../generated/fonts.dart';
+import 'order_detail_screen.dart';
 
 class CompletedOrderScreen extends StatelessWidget {
   CompletedOrderScreen({super.key});
@@ -28,7 +29,9 @@ class CompletedOrderScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 var data = controller.model1!.order[index];
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => OrderDetailScreen(order: data));
+                  },
                   child: Card(
                     elevation: 20,
                     child: Row(

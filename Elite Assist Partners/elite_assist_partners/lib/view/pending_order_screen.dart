@@ -1,3 +1,4 @@
+import 'package:elite_assist_partners/view/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,13 +20,17 @@ class PendingOrderScreen extends StatelessWidget {
         child: Obx(() {
           if (controller.isPendingLoading.value) {
             return Center(child: CircularProgressIndicator.adaptive());
+          } else if (controller.model0!.order.isEmpty) {
+            return Center(child: Text("No Pending Orders"));
           } else {
             return ListView.builder(
               itemCount: controller.model0!.order.length,
               itemBuilder: (context, index) {
                 var data = controller.model0!.order[index];
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => OrderDetailScreen(order: data));
+                  },
                   child: Card(
                     elevation: 20,
                     child: Row(

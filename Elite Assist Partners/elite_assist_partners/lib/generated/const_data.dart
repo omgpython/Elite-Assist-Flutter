@@ -1,6 +1,6 @@
 class ConstantData {
   //SERVER ADDRESS
-  static final String SERVER_ADDRESS = "http://192.168.1.5:8000/";
+  static final String SERVER_ADDRESS = "http://192.168.1.2:8000/";
 
   //SHRED PREFERENCE KEY
   static final String KEY_ID_SP = "ID";
@@ -13,4 +13,5 @@ class ConstantData {
   //API ADDRESS
   static final String LOGIN_API = SERVER_ADDRESS + "api/getpartner";
   static final String ORDER_API = SERVER_ADDRESS + "api/orders";
+  static final String COMPLETE_ORDER_API = SERVER_ADDRESS + "api/orders/finish";
 }

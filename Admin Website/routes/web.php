@@ -69,6 +69,7 @@ Route::resource('/products', ProductController::class);
 Route::resource('/order', OrderController::class);
 //pending orders
 Route::get('/pendingorder', [OrderController::class, 'pendingorder']);
+Route::get('/pendingordeViewmore/{id}', [OrderController::class, 'pendingordeViewmore']);
 //completed orders
 Route::get('/completedorder', [OrderController::class, 'completedorder']);
 
@@ -155,3 +156,4 @@ Route::post('/getorder/cancel/user', [PartnerBookingController::class, 'getPartn
 Route::post('/checkemail', [PersonController::class, 'checkEmail']);
 Route::post('api/relatedproduct', [ProductController::class, 'getRelatedProduct']);
 Route::post('api/orders', [PartnerController::class, 'getOrders']);
+Route::post('api/orders/finish', [OrderController::class, 'completePartnerOrder']);

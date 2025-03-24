@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:elite_assist_partners/generated/const_data.dart';
 import 'package:elite_assist_partners/generated/pref_manager.dart';
+import 'package:elite_assist_partners/view/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,6 +50,20 @@ class OrderController extends GetxController {
     } catch (e) {
       isCompletedLoading.value = false;
       log(e.toString(), name: "Completed SERVER ERROR");
+    }
+  }
+
+  Future<void> completeOrder({required String id}) async {
+    try {
+      final url = Uri.parse(ConstantData.COMPLETE_ORDER_API);
+      var response = await http.post(url, body: {"id": id});
+
+      if (response.statusCode == 200) {
+        log(response.body, name: "COMPLETE ORDER");
+        Get.offAll(() => HomeScreen());
+      }
+    } catch (e) {
+      log(e.toString(), name: "COMPLETE SERVER ERROR");
     }
   }
 }

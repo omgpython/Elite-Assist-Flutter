@@ -34,7 +34,7 @@ class PartnerAssignController extends Controller
         $table->partner_contact = $partner->mobile_no;
         $table->partner_pic = $partner->partner_pic;
         $table->save();
-        return redirect('orders')->withSuccess("Assigned Successfully");
+        return redirect('order')->withSuccess("Assigned Successfully");
         // return redirect('orders')->withSuccess("Assigned Successfully");
     }
 

@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String audioSound = 'assets/audio/sound.mp3';
   static const String fontsBebasNeueRegular =
       'assets/fonts/BebasNeue-Regular.ttf';
   static const String fontsBonaNovaSCBold = 'assets/fonts/BonaNovaSC-Bold.ttf';
@@ -13,4 +14,6 @@ class Assets {
       'assets/fonts/Roboto_Condensed-Medium.ttf';
   static const String fontsRobotoSemiCondensedRegular =
       'assets/fonts/Roboto_SemiCondensed-Regular.ttf';
+  static const String iconsAddress = 'assets/icons/address.svg';
+  static const String iconsPhone = 'assets/icons/phone.svg';
 }

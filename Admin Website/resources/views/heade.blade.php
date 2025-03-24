@@ -158,7 +158,7 @@
                                 <i class="fa-solid fa-gift"></i>
                             </span>
                             <span class="menu-text">
-                                Orders
+                                Pending Assign
                             </span>
                         </a>
                     </li> --}}
@@ -168,7 +168,7 @@
                                 <i class="fa-solid fa-gift" style="font-size: 18px"></i>
                             </span>
                             <span class="menu-text">
-                                orders
+                                Orders
                             </span>
                         </a>
                         <ul class="sub-menu">
@@ -186,7 +186,7 @@
                                     <span class="icon-dash">
                                     </span>
                                     <span class="menu-text">
-                                        pendingorder
+                                        Pending Order
                                     </span>
                                 </a>
                             </li>
