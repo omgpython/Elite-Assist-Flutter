@@ -69,6 +69,8 @@ Route::resource('/products', ProductController::class);
 Route::resource('/order', OrderController::class);
 //pending orders
 Route::get('/pendingorder', [OrderController::class, 'pendingorder']);
+Route::get('/completeordeViewmore/{id}', [OrderController::class, 'completeordeViewmore']);
+
 Route::get('/pendingordeViewmore/{id}', [OrderController::class, 'pendingordeViewmore']);
 //completed orders
 Route::get('/completedorder', [OrderController::class, 'completedorder']);

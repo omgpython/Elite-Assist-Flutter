@@ -21,8 +21,6 @@
               <thead>
                 <tr>
                   <th>Id</th>
-                  <th>User-id</th>
-                  <th>Product-id</th>
                   <th>Product-name</th>
                   <th>Amount</th>
                   <th>Total-Amount</th>
@@ -31,15 +29,13 @@
                   <th>time</th>
                   <th>Address</th>
                   <th>payment_type</th>
-                  <th>Assign Order</th>
+                  <th>Order Detail</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($data as $item)
                   <tr>
                     <td>{{$loop->index+1}}</td>
-                    <td>{{$item->uid}}</td>
-                    <td>{{$item->pid}}</td>
                     <td>{{$item->pname}}</td>
                     <td>{{$item->amount}}</td>
                     <td>{{$item->total_amount}}</td>
@@ -51,14 +47,12 @@
                     <td>
                     <form method="POST" action="/add/partner/booking">
                       @csrf
-                      <input type="hidden" name="pid" value="{{ $item->pid }}"/>
-                      <input type="hidden" name="cid" value="{{ $item->uid }}"/>
                       <input type="hidden" name="address" value="{{ $item->address }}"/>
                       <input type="hidden" name="price" value="{{ $item->total_amount }}"/>
                       <input type="hidden" name="part_id" value="{{ $item->id }}"/>
                       <input type="hidden" name="status" value="0"/>
-
-                      <a href="/Assigns/{{$item->id}}" class="btn btn-primary"><i class='bx bx-cart'></i> Assign</button>
+                     <a href="/completeordeViewmore/{{ $item->id }}" class="btn btn-primary">View</a>
+                      {{-- <a href="/Assigns/{{$item->id}}" class="btn btn-primary"><i class='bx bx-cart'></i> Assign</button> --}}
                     </form>
                     </td>
                   </tr>

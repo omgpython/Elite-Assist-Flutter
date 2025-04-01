@@ -41,10 +41,15 @@ class OrderController extends Controller
             // return view('orders.index',compact('data','Admin_pic','username'));
         }
     }
-    public function pendingordeViewmore($id)  {
-        $pendingorder=order::find($id);
-        return view('orders.pendingorderViewmore',compact('pendingorder'));
-        
+    public function completeordeViewmore($id)
+    {
+        $completedgorder = order::find($id);
+        return view('orders.complete', compact('completedgorder'));
+    }
+    public function pendingordeViewmore($id)
+    {
+        $pendingorder = order::find($id);
+        return view('orders.pendingorderViewmore', compact('pendingorder'));
     }
 
     public function completedorder()
@@ -238,12 +243,13 @@ class OrderController extends Controller
         }
     }
 
-    public function completePartnerOrder(Request $request) {
-        if(isset($request->id)) {
+    public function completePartnerOrder(Request $request)
+    {
+        if (isset($request->id)) {
             $time = Carbon::now('Asia/Kolkata')->format('h:i A');
-            $date = Carbon::now('Asia/Kolkata')->format('d-m-Y'); 
+            $date = Carbon::now('Asia/Kolkata')->format('d-m-Y');
 
-            $table = order::where('_id',$request->id)->first();
+            $table = order::where('_id', $request->id)->first();
 
             $table->status = 1;
             $table->end_date = $date;

@@ -21,8 +21,6 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>User-id</th>
-                                <th>Product-id</th>
                                 <th>Product-name</th>
                                 <th>Amount</th>
                                 <th>Total-Amount</th>
@@ -38,8 +36,6 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ $item->uid }}</td>
-                                    <td>{{ $item->pid }}</td>
                                     <td>{{ $item->pname }}</td>
                                     <td>{{ $item->amount }}</td>
                                     <td>{{ $item->total_amount }}</td>
@@ -59,8 +55,8 @@
                                             <input type="hidden" name="status" value="0" />
                                             <a href="/pendingordeViewmore/{{ $item->id }}"
                                                 class="btn btn-primary">View more</a>
-                                            <a href="/Assigns/{{ $item->id }}" class="btn btn-primary"><i
-                                                    class='bx bx-cart'></i> Assign</button>
+                                            {{-- <a href="/Assigns/{{ $item->id }}" class="btn btn-primary"><i
+                                                    class='bx bx-cart'></i> Assign</button> --}}
                                         </form>
                                     </td>
                                 </tr>
