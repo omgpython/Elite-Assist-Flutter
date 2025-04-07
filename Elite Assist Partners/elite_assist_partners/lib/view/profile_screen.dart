@@ -27,13 +27,15 @@ class ProfileScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 12),
                   child: CircleAvatar(
-                    radius: 56,
-                    backgroundColor: Colors.blue,
+                    radius: 86,
+                    backgroundColor: Colors.black,
                     child: Padding(
                       padding: EdgeInsets.all(4),
-                      child: ClipOval(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(26),
                         child: Image.network(
                           ConstantData.SERVER_ADDRESS + manager.getPic(),
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

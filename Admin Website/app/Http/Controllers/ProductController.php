@@ -270,27 +270,23 @@ class ProductController extends Controller
                 ->where("_id","!=",$request->prod_id)
                 ->get();
             
-                foreach($data as $item){
-                    $pic=asset('product');
-                    $item->product_pic1=asset('product') ."/".$item->product_pic1;
-                }
-        
-                foreach($data as $item){
-                    $pic=asset('product');
-                    $item->product_pic2=asset('product') ."/".$item->product_pic2;
-                }
-        
-                foreach($data as $item){
-                    $pic=asset('product_video');
-                    $item->product_vid=asset('product_video') ."/".$item->product_vid;
-                }
-        
-                return [ 
-                    "status" => true,
-                    "message" => "success",
-                    "product" => $data 
-                ];    
-
+            foreach($data as $item){
+                $item->product_pic1=asset('product') ."/".$item->product_pic1;
+            }
+    
+            foreach($data as $item){
+                $item->product_pic2=asset('product') ."/".$item->product_pic2;
+            }
+    
+            foreach($data as $item){
+                $item->product_vid=asset('product_video') ."/".$item->product_vid;
+            }
+    
+            return [ 
+                "status" => true,
+                "message" => "success",
+                "product" => $data 
+            ];    
 
         } else {
             return [
