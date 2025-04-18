@@ -162,9 +162,9 @@
                               <td>{{$item->amount}}</td>
                               <td>
                                 @php
-                                    if ($item->is_assign == false) {
+                                    if ($item->is_aasign == false) {
                                         echo "<div class='alert alert-warning' role='alert'>pendding</div>";
-                                    }elseif ($item->is_assign == true) {
+                                    }else { //if ($item->is_assign == true)
                                         echo "<div class='alert alert-success' role='alert'>Assigned</div>";
                                     }//elseif ($item->status == 2) {
                                     //     echo "<div class='alert alert-warning' role='alert'>Cancled</div>";

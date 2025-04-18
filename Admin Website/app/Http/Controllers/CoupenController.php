@@ -146,9 +146,13 @@ class CoupenController extends Controller
 
     public function getCouponFromCode(Request $request) {
         $ccode=$request->ccode;
+        
         if(isset($ccode)){
     
-            $data=Coupen::where('coupen_code',$ccode)->first();
+            $data=Coupen::where('coupen_code',$ccode)
+                ->where('status',true)
+                ->first();
+
             if(isset($data)) {
                 return [
                     "status" => true,

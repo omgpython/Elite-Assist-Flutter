@@ -1,4 +1,6 @@
 import 'package:elite_assist_partners/generated/pref_manager.dart';
+import 'package:elite_assist_partners/view/privacy_policy_screen.dart';
+import 'package:elite_assist_partners/view/terms_and_condition_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
@@ -6,6 +8,8 @@ import 'package:panara_dialogs/panara_dialogs.dart';
 import '../common_ui/custom_appbar.dart';
 import '../generated/const_data.dart';
 import '../generated/fonts.dart';
+import 'about_us_screen.dart';
+import 'contact_us_screen.dart';
 import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -95,28 +99,28 @@ class ProfileScreen extends StatelessWidget {
                     leading: Icons.support_agent,
                     tittle: 'Contact US',
                     onTap: () {
-                      //Get.to(() => ContactUsScreen());
+                      Get.to(() => ContactUsScreen());
                     },
                   ),
                   CustomListTile(
                     leading: Icons.contact_support_outlined,
                     tittle: 'About US',
                     onTap: () {
-                      //Get.to(() => AboutUsScreen());
+                      Get.to(() => AboutUsScreen());
                     },
                   ),
                   CustomListTile(
                     leading: Icons.privacy_tip_outlined,
                     tittle: 'Privacy Policy',
                     onTap: () {
-                      //Get.to(() => PrivacyPolicyScreen());
+                      Get.to(() => PrivacyPolicyScreen());
                     },
                   ),
                   CustomListTile(
                     leading: Icons.policy,
                     tittle: 'Terms & Condition',
                     onTap: () {
-                      //Get.to(() => TermsAndConditionScreen());
+                      Get.to(() => TermsAndConditionScreen());
                     },
                   ),
                   CustomListTile(

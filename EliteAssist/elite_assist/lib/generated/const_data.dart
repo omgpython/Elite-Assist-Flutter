@@ -1,6 +1,6 @@
 class ConstantData {
 // Server Address
-  static final String SERVER_ADDRESS = "http://192.168.1.31:8000/";
+  static final String SERVER_ADDRESS = "http://192.168.22.73:8000/";
 
 //Shared Preferences Key
   static final String KEY_ID_SP = "ID";

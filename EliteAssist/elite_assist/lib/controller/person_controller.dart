@@ -120,7 +120,8 @@ class PersonController extends GetxController {
 
       if (response.statusCode == 200) {
         isUserEdit.value = false;
-        Get.back(result: true);
+        // Get.back(result: true);
+        Get.offAll(() => BottomNavScreen());
         manager.spEditUser(
           contact: contactController.text.trim(),
           name: nameController.text.trim(),
